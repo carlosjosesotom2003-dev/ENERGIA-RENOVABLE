@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viabilidad de Energías Renovables - Colombia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .header-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+        }
+
+        .header-text p {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        /* Energy Selector */
+        .energy-selector {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .energy-selector h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .energy-selector p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .energy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .energy-button {
+            background: rgba(30, 41, 59, 0.6);
+            border: 2px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .energy-button:hover {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: #eab308;
+            transform: translateY(-2px);
+        }
+
+        .energy-button.active {
+            background: rgba(234, 179, 8, 0.1);
+            border-color: #eab308;
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
+        }
+
+        .energy-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .energy-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Map Container */
+        .map-container {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .map-header {
+            margin-bottom: 20px;
+        }
+
+        .map-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .map-header p {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .map-legend {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        /* SVG Map */
+        #colombia-map {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+        }
+
+        .department {
+            stroke: #1e293b;
+            stroke-width: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .department:hover {
+            stroke: #eab308;
+            stroke-width: 3;
+            filter: brightness(1.2);
+        }
+        
+        /* New CSS classes for dynamic coloring based on viability score */
+        .viability-muy-alta { fill: #22c55e; }
+        .viability-alta { fill: #84cc16; }
+        .viability-media { fill: #eab308; }
+        .viability-baja { fill: #f97316; }
+        .viability-muy-baja { fill: #ef4444; }
+
+
+        .department-label {
+            font-size: 10px;
+            fill: #0f172a;
+            font-weight: 600;
+            pointer-events: none;
+            text-anchor: middle;
+        }
+        
+        .selected-department {
+            stroke: #ffffff !important;
+            stroke-width: 4 !important;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+        }
+
+        /* Department Panel */
+        .department-panel {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            height: fit-content;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .panel-icon {
+            font-size: 24px;
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94a3b8;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .department-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #f1f5f9;
+        }
+
+        .energy-type {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 16px;
+        }
+
+        .viability-section {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .viability-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .viability-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .viability-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(148, 163, 184, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .details-section {
+            margin-bottom: 20px;
+        }
+
+        .details-section h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #f1f5f9;
+        }
+
+        .details-section p {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .data-item {
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .data-label {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+        }
+
+        .data-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        /* Chatbot */
+        .chatbot-button {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(234, 179, 8, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(234, 179, 8, 0.6);
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            width: 380px;
+            height: 500px;
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .chatbot-window.open {
+            display: flex;
+        }
+
+        .chatbot-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .close-button:hover {
+            background: rgba(148, 163, 184, 0.1);
+            color: #f1f5f9;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message.bot {
+            background: rgba(30, 41, 59, 0.8);
+            align-self: flex-start;
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+            color: #0f172a;
+            align-self: flex-end;
+        }
+
+        .quick-questions {
+            padding: 12px 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .quick-questions-title {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .quick-button {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            margin: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .quick-button:hover {
+            background: rgba(234, 179, 8, 0.1);
+            border-color: #eab308;
+        }
+
+        .chatbot-input {
+            padding: 16px 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+            display: flex;
+            gap: 8px;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        .chatbot-input input:focus {
+            outline: none;
+            border-color: #eab308;
+        }
+
+        .send-button {
+            background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: #0f172a;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .send-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.4);
+        }
+    </style>
+</head>
+<body onload="initDashboard()">
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">⚡</div>
+                <div class="header-text">
+                    <h1>Viabilidad de Energías Renovables</h1>
+                    <p>Colombia - Datos UPME</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="energy-selector">
+            <h2>Seleccionar Tipo de Energía</h2>
+            <p>Elige una fuente renovable para ver su viabilidad en Colombia</p>
+            <div class="energy-grid">
+                <div class="energy-button active" data-energy="solar" onclick="updateMapVisualization('solar', this)">
+                    <div class="energy-icon">☀️</div>
+                    <div class="energy-name">Energía Solar</div>
+                </div>
+                <div class="energy-button" data-energy="eolica" onclick="updateMapVisualization('eolica', this)">
+                    <div class="energy-icon">💨</div>
+                    <div class="energy-name">Energía Eólica</div>
+                </div>
+                <div class="energy-button" data-energy="hidraulica" onclick="updateMapVisualization('hidraulica', this)">
+                    <div class="energy-icon">💧</div>
+                    <div class="energy-name">Energía Hidráulica</div>
+                </div>
+                <div class="energy-button" data-energy="biomasa" onclick="updateMapVisualization('biomasa', this)">
+                    <div class="energy-icon">🌿</div>
+                    <div class="energy-name">Biomasa</div>
+                </div>
+                <div class="energy-button" data-energy="geotermica" onclick="updateMapVisualization('geotermica', this)">
+                    <div class="energy-icon">🔥</div>
+                    <div class="energy-name">Energía Geotérmica</div>
+                </div>
+                <div class="energy-button" data-energy="mareomotriz" onclick="updateMapVisualization('mareomotriz', this)">
+                    <div class="energy-icon">🌊</div>
+                    <div class="energy-name">Energía Mareomotriz</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="map-container">
+                <div class="map-header">
+                    <h2>Mapa de Viabilidad</h2>
+                    <p>Haz clic en un departamento para ver información detallada</p>
+                </div>
+                
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #22c55e;"></div>
+                        <span>Muy Alta</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #84cc16;"></div>
+                        <span>Alta</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #eab308;"></div>
+                        <span>Media</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f97316;"></div>
+                        <span>Baja</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ef4444;"></div>
+                        <span>Muy Baja</span>
+                    </div>
+                </div>
+
+                <svg id="colombia-map" viewBox="0 0 800 900" xmlns="http://www.w3.org/2000/svg">
+                    <path class="department" data-dept="La Guajira" d="M 580 80 L 680 100 L 700 150 L 650 180 L 600 160 L 570 120 Z" onclick="showDepartmentDetails('La Guajira', this)"/>
+                    <text class="department-label" x="630" y="140">La Guajira</text>
+
+                    <path class="department" data-dept="Magdalena" d="M 500 150 L 580 160 L 570 220 L 490 210 Z" onclick="showDepartmentDetails('Magdalena', this)"/>
+                    <text class="department-label" x="530" y="190">Magdalena</text>
+
+                    <path class="department" data-dept="Atlántico" d="M 450 180 L 500 180 L 495 220 L 445 210 Z" onclick="showDepartmentDetails('Atlántico', this)"/>
+                    <text class="department-label" x="470" y="205">Atlántico</text>
+
+                    <path class="department" data-dept="Cesar" d="M 520 220 L 600 230 L 580 310 L 500 300 Z" onclick="showDepartmentDetails('Cesar', this)"/>
+                    <text class="department-label" x="550" y="270">Cesar</text>
+
+                    <path class="department" data-dept="Bolívar" d="M 400 220 L 500 240 L 480 340 L 380 320 Z" onclick="showDepartmentDetails('Bolívar', this)"/>
+                    <text class="department-label" x="440" y="280">Bolívar</text>
+
+                    <path class="department" data-dept="Norte de Santander" d="M 550 310 L 610 320 L 590 390 L 530 380 Z" onclick="showDepartmentDetails('Norte de Santander', this)"/>
+                    <text class="department-label" x="565" y="350">N. Santander</text>
+
+                    <path class="department" data-dept="Sucre" d="M 350 280 L 420 290 L 410 340 L 340 330 Z" onclick="showDepartmentDetails('Sucre', this)"/>
+                    <text class="department-label" x="380" y="315">Sucre</text>
+
+                    <path class="department" data-dept="Córdoba" d="M 280 300 L 360 310 L 350 370 L 270 360 Z" onclick="showDepartmentDetails('Córdoba', this)"/>
+                    <text class="department-label" x="315" y="340">Córdoba</text>
+
+                    <path class="department" data-dept="Santander" d="M 480 350 L 560 360 L 540 450 L 460 440 Z" onclick="showDepartmentDetails('Santander', this)"/>
+                    <text class="department-label" x="510" y="400">Santander</text>
+
+                    <path class="department" data-dept="Arauca" d="M 590 390 L 680 400 L 670 460 L 580 450 Z" onclick="showDepartmentDetails('Arauca', this)"/>
+                    <text class="department-label" x="630" y="430">Arauca</text>
+
+                    <path class="department" data-dept="Antioquia" d="M 280 380 L 400 400 L 380 520 L 260 500 Z" onclick="showDepartmentDetails('Antioquia', this)"/>
+                    <text class="department-label" x="330" y="450">Antioquia</text>
+
+                    <path class="department" data-dept="Boyacá" d="M 440 440 L 550 450 L 530 540 L 420 530 Z" onclick="showDepartmentDetails('Boyacá', this)"/>
+                    <text class="department-label" x="485" y="490">Boyacá</text>
+
+                    <path class="department" data-dept="Casanare" d="M 560 460 L 670 470 L 650 550 L 540 540 Z" onclick="showDepartmentDetails('Casanare', this)"/>
+                    <text class="department-label" x="605" y="510">Casanare</text>
+
+                    <path class="department" data-dept="Chocó" d="M 140 420 L 260 440 L 240 540 L 120 520 Z" onclick="showDepartmentDetails('Chocó', this)"/>
+                    <text class="department-label" x="190" y="485">Chocó</text>
+
+                    <path class="department" data-dept="Caldas" d="M 280 510 L 350 520 L 340 570 L 270 560 Z" onclick="showDepartmentDetails('Caldas', this)"/>
+                    <text class="department-label" x="310" y="545">Caldas</text>
+
+                    <path class="department" data-dept="Risaralda" d="M 230 530 L 290 540 L 280 580 L 220 570 Z" onclick="showDepartmentDetails('Risaralda', this)"/>
+                    <text class="department-label" x="255" y="558">Risaralda</text>
+
+                    <path class="department" data-dept="Quindío" d="M 260 570 L 310 580 L 300 610 L 250 600 Z" onclick="showDepartmentDetails('Quindío', this)"/>
+                    <text class="department-label" x="280" y="593">Quindío</text>
+
+                    <path class="department" data-dept="Cundinamarca" d="M 360 530 L 460 540 L 440 620 L 340 610 Z" onclick="showDepartmentDetails('Cundinamarca', this)"/>
+                    <text class="department-label" x="400" y="580">Cundinamarca</text>
+
+                    <path class="department" data-dept="Meta" d="M 470 550 L 600 560 L 580 670 L 450 660 Z" onclick="showDepartmentDetails('Meta', this)"/>
+                    <text class="department-label" x="525" y="615">Meta</text>
+
+                    <path class="department" data-dept="Valle del Cauca" d="M 200 580 L 300 600 L 280 680 L 180 660 Z" onclick="showDepartmentDetails('Valle del Cauca', this)"/>
+                    <text class="department-label" x="240" y="635">Valle</text>
+
+                    <path class="department" data-dept="Tolima" d="M 310 610 L 410 620 L 390 700 L 290 690 Z" onclick="showDepartmentDetails('Tolima', this)"/>
+                    <text class="department-label" x="350" y="660">Tolima</text>
+
+                    <path class="department" data-dept="Vichada" d="M 610 560 L 740 570 L 720 680 L 590 670 Z" onclick="showDepartmentDetails('Vichada', this)"/>
+                    <text class="department-label" x="665" y="625">Vichada</text>
+
+                    <path class="department" data-dept="Cauca" d="M 180 680 L 300 700 L 280 780 L 160 760 Z" onclick="showDepartmentDetails('Cauca', this)"/>
+                    <text class="department-label" x="230" y="735">Cauca</text>
+
+                    <path class="department" data-dept="Huila" d="M 300 700 L 400 710 L 380 790 L 280 780 Z" onclick="showDepartmentDetails('Huila', this)"/>
+                    <text class="department-label" x="340" y="750">Huila</text>
+
+                    <path class="department" data-dept="Guaviare" d="M 460 670 L 590 680 L 570 760 L 440 750 Z" onclick="showDepartmentDetails('Guaviare', this)"/>
+                    <text class="department-label" x="515" y="720">Guaviare</text>
+
+                    <path class="department" data-dept="Nariño" d="M 120 770 L 240 790 L 220 860 L 100 840 Z" onclick="showDepartmentDetails('Nariño', this)"/>
+                    <text class="department-label" x="170" y="820">Nariño</text>
+
+                    <path class="department" data-dept="Caquetá" d="M 290 790 L 440 800 L 420 870 L 270 860 Z" onclick="showDepartmentDetails('Caquetá', this)"/>
+                    <text class="department-label" x="355" y="835">Caquetá</text>
+
+                    <path class="department" data-dept="Putumayo" d="M 220 850 L 340 860 L 320 900 L 200 890 Z" onclick="showDepartmentDetails('Putumayo', this)"/>
+                    <text class="department-label" x="270" y="880">Putumayo</text>
+
+                    <path class="department" data-dept="Vaupés" d="M 450 760 L 590 770 L 570 840 L 430 830 Z" onclick="showDepartmentDetails('Vaupés', this)"/>
+                    <text class="department-label" x="510" y="805">Vaupés</text>
+
+                    <path class="department" data-dept="Guainía" d="M 600 680 L 730 690 L 710 770 L 580 760 Z" onclick="showDepartmentDetails('Guainía', this)"/>
+                    <text class="department-label" x="655" y="730">Guainía</text>
+
+                    <path class="department" data-dept="Amazonas" d="M 350 860 L 560 870 L 540 900 L 330 890 Z" onclick="showDepartmentDetails('Amazonas', this)"/>
+                    <text class="department-label" x="445" y="885">Amazonas</text>
+                </svg>
+            </div>
+
+            <div class="department-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">📍</span>
+                    <h2 class="panel-title">Información del Departamento</h2>
+                </div>
+                
+                <div id="panel-content">
+                    <div class="empty-state">
+                        <div class="empty-icon">ℹ️</div>
+                        <p>Selecciona un departamento en el mapa para ver información detallada sobre su viabilidad energética</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="chatbot-button" onclick="toggleChatbot()">💬</button>
+
+    <div class="chatbot-window" id="chatbot">
+        <div class="chatbot-header">
+            <h3 class="chatbot-title">Asistente Energético</h3>
+            <button class="close-button" onclick="toggleChatbot()">×</button>
+        </div>
+        
+        <div class="chatbot-messages" id="messages">
+            <div class="message bot">
+                ¡Hola! Soy tu asistente de energías renovables. Puedo ayudarte con información sobre viabilidad, financiamiento, implementación y requisitos legales en Colombia. ¿En qué puedo ayudarte?
+            </div>
+        </div>
+
+        <div class="quick-questions">
+            <div class="quick-questions-title">Preguntas frecuentes:</div>
+            <button class="quick-button" onclick="askQuestion('¿Qué financiamiento hay disponible?')">💰 Financiamiento</button>
+            <button class="quick-button" onclick="askQuestion('¿Cuáles son los pasos de implementación?')">📋 Implementación</button>
+            <button class="quick-button" onclick="askQuestion('¿Qué es mejor para La Guajira?')">🌍 La Guajira</button>
+        </div>
+
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." onkeypress="handleKeyPress(event)">
+            <button class="send-button" onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DATOS MOCK-UP COMPLETOS (VIABILIDAD: 0-100) ---
+        const energyData = {
+            solar: {
+                'La Guajira': { viability: 95, reason: 'Excelente radiación solar durante todo el año, con promedio de 6+ horas de sol diario. **Potencial Muy Alto**.', potential: '2,500 kWh/m²/año', projects: '15 proyectos activos', investment: '$450M USD', employment: 4142 },
+                'Magdalena': { viability: 88, reason: 'Alta radiación solar en la costa caribeña, clima favorable. **Potencial Alto**.', potential: '2,200 kWh/m²/año', projects: '8 proyectos', investment: '$180M USD', employment: 2607 },
+                'Atlántico': { viability: 90, reason: 'Condiciones costeras ideales, infraestructura desarrollada. **Potencial Muy Alto**.', potential: '2,300 kWh/m²/año', projects: '12 proyectos', investment: '$320M USD', employment: 1935 },
+                'Cesar': { viability: 85, reason: 'Buena radiación solar, terrenos disponibles para desarrollo. **Potencial Alto**.', potential: '2,100 kWh/m²/año', projects: '6 proyectos', investment: '$220M USD', employment: 965 },
+                'Bolívar': { viability: 75, reason: 'Radiación moderada-alta, potencial en zonas rurales. **Potencial Alto**.', potential: '1,900 kWh/m²/año', projects: '4 proyectos', investment: '$150M USD', employment: 0 },
+                'Norte de Santander': { viability: 65, reason: 'Radiación variable por topografía montañosa. **Potencial Medio**.', potential: '1,700 kWh/m²/año', projects: '2 proyectos', investment: '$80M USD', employment: 0 },
+                'Sucre': { viability: 78, reason: 'Buen potencial solar en la región norte. **Potencial Alto**.', potential: '1,950 kWh/m²/año', projects: '3 proyectos', investment: '$120M USD', employment: 0 },
+                'Córdoba': { viability: 80, reason: 'Condiciones favorables, desarrollo agroindustrial complementario. **Potencial Alto**.', potential: '2,000 kWh/m²/año', projects: '5 proyectos', investment: '$190M USD', employment: 0 },
+                'Santander': { viability: 60, reason: 'Radiación limitada por nubosidad en zonas montañosas. **Potencial Medio**.', potential: '1,600 kWh/m²/año', projects: '2 proyectos', investment: '$70M USD', employment: 0 },
+                'Arauca': { viability: 70, reason: 'Potencial moderado en los llanos orientales. **Potencial Medio**.', potential: '1,800 kWh/m²/año', projects: '3 proyectos', investment: '$95M USD', employment: 0 },
+                'Antioquia': { viability: 68, reason: 'Variable por diversidad climática, mejor en el valle. **Potencial Medio**.', potential: '1,750 kWh/m²/año', projects: '7 proyectos', investment: '$210M USD', employment: 0 },
+                'Boyacá': { viability: 72, reason: 'Buena radiación en altiplano, clima frío favorable para paneles. **Potencial Medio**.', potential: '1,850 kWh/m²/año', projects: '4 proyectos', investment: '$140M USD', employment: 0 },
+                'Casanare': { viability: 75, reason: 'Excelentes condiciones en los llanos. **Potencial Alto**.', potential: '1,900 kWh/m²/año', projects: '3 proyectos', investment: '$110M USD', employment: 0 },
+                'Chocó': { viability: 40, reason: 'Alta nubosidad y precipitación limitan potencial solar. **Potencial Baja**.', potential: '1,200 kWh/m²/año', projects: '1 proyecto', investment: '$30M USD', employment: 0 },
+                'Caldas': { viability: 65, reason: 'Potencial moderado en zonas de menor altitud. **Potencial Medio**.', potential: '1,650 kWh/m²/año', projects: '2 proyectos', investment: '$75M USD', employment: 0 },
+                'Risaralda': { viability: 62, reason: 'Condiciones similares a eje cafetero, nubosidad media. **Potencial Medio**.', potential: '1,600 kWh/m²/año', projects: '2 proyectos', investment: '$65M USD', employment: 0 },
+                'Quindío': { viability: 63, reason: 'Potencial limitado por clima cafetero. **Potencial Medio**.', potential: '1,620 kWh/m²/año', projects: '1 proyecto', investment: '$50M USD', employment: 0 },
+                'Cundinamarca': { viability: 78, reason: 'Buena radiación en sabana, infraestructura cercana a Bogotá. **Potencial Alto**.', potential: '1,950 kWh/m²/año', projects: '9 proyectos', investment: '$280M USD', employment: 0 },
+                'Meta': { viability: 73, reason: 'Condiciones favorables en piedemonte llanero. **Potencial Medio**.', potential: '1,870 kWh/m²/año', projects: '4 proyectos', investment: '$130M USD', employment: 0 },
+                'Valle del Cauca': { viability: 77, reason: 'Buen potencial en valle geográfico. **Potencial Alto**.', potential: '1,920 kWh/m²/año', projects: '6 proyectos', investment: '$200M USD', employment: 0 },
+                'Tolima': { viability: 82, reason: 'Excelente radiación en valle del Magdalena. **Potencial Alto**.', potential: '2,050 kWh/m²/año', projects: '5 proyectos', investment: '$175M USD', employment: 0 },
+                'Vichada': { viability: 80, reason: 'Alto potencial en región de llanos, poca infraestructura. **Potencial Alto**.', potential: '2,000 kWh/m²/año', projects: '1 proyecto', investment: '$60M USD', employment: 0 },
+                'Cauca': { viability: 70, reason: 'Potencial variable por topografía diversa. **Potencial Medio**.', potential: '1,800 kWh/m²/año', projects: '3 proyectos', investment: '$105M USD', employment: 0 },
+                'Huila': { viability: 76, reason: 'Buena radiación en valle del Alto Magdalena. **Potencial Alto**.', potential: '1,900 kWh/m²/año', projects: '4 proyectos', investment: '$155M USD', employment: 0 },
+                'Guaviare': { viability: 55, reason: 'Bosques densos y nubosidad limitan la radiación. **Potencial Medio-Bajo**.', potential: '1,500 kWh/m²/año', projects: '1 proyecto', investment: '$25M USD', employment: 0 },
+                'Nariño': { viability: 68, reason: 'Potencial moderado, afectado por altitud y clima del Pacífico. **Potencial Medio**.', potential: '1,700 kWh/m²/año', projects: '2 proyectos', investment: '$85M USD', employment: 0 },
+                'Caquetá': { viability: 50, reason: 'Región de Amazonía, alta nubosidad y precipitación. **Potencial Bajo**.', potential: '1,400 kWh/m²/año', projects: '1 proyecto', investment: '$40M USD', employment: 0 },
+                'Putumayo': { viability: 45, reason: 'Región de Amazonía, alta nubosidad y precipitación. **Potencial Bajo**.', potential: '1,300 kWh/m²/año', projects: '1 proyecto', investment: '$35M USD', employment: 0 },
+                'Vaupés': { viability: 50, reason: 'Remoto y denso, baja infraestructura. **Potencial Bajo**.', potential: '1,450 kWh/m²/año', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Guainía': { viability: 55, reason: 'Remoto y denso, nubosidad. **Potencial Medio-Bajo**.', potential: '1,500 kWh/m²/año', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Amazonas': { viability: 40, reason: 'Selva amazónica, alta nubosidad. **Potencial Muy Bajo**.', potential: '1,200 kWh/m²/año', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                // Departamentos Costeros/Insulares sin figura en el mapa simplificado, se asignan al departamento más cercano para la lógica
+                'San Andrés y Providencia': { viability: 85, reason: 'Potencial solar ideal para autoconsumo en islas. **Potencial Alto**.', potential: '2,100 kWh/m²/año', projects: '1 proyecto', investment: '$10M USD', employment: 0 },
+                'Bogotá D.C.': { viability: 70, reason: 'Uso en cubiertas de edificios, alta demanda. **Potencial Medio**.', potential: '1,800 kWh/m²/año', projects: '10 proyectos', investment: '$300M USD', employment: 0 },
+            },
+            eolica: {
+                'La Guajira': { viability: 98, reason: 'Vientos constantes y de alta velocidad (clase 7) lo convierten en la zona con mayor potencial eólico de Latam. **Potencial Muy Alto**.', potential: '9 m/s promedio', projects: '20 proyectos activos', investment: '$1,200M USD', employment: 6512 },
+                'Magdalena': { viability: 80, reason: 'Potencial alto en la costa, complementario al solar. **Potencial Alto**.', potential: '7.5 m/s promedio', projects: '5 proyectos', investment: '$300M USD', employment: 1800 },
+                'Atlántico': { viability: 75, reason: 'Buen recurso eólico costero, cercano a la red. **Potencial Alto**.', potential: '7.0 m/s promedio', projects: '3 proyectos', investment: '$150M USD', employment: 0 },
+                'Cesar': { viability: 60, reason: 'Potencial moderado, principalmente en serranía. **Potencial Medio**.', potential: '6.0 m/s promedio', projects: '1 proyecto', investment: '$50M USD', employment: 0 },
+                'Bolívar': { viability: 50, reason: 'Potencial bajo en la costa. **Potencial Bajo**.', potential: '5.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Norte de Santander': { viability: 65, reason: 'Potencial en zonas montañosas altas. **Potencial Medio**.', potential: '6.5 m/s promedio', projects: '2 proyectos', investment: '$70M USD', employment: 0 },
+                'Sucre': { viability: 55, reason: 'Potencial moderado en la región. **Potencial Medio**.', potential: '5.8 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Córdoba': { viability: 58, reason: 'Potencial moderado en la región costera. **Potencial Medio**.', potential: '6.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Santander': { viability: 62, reason: 'Potencial en picos y páramos. **Potencial Medio**.', potential: '6.3 m/s promedio', projects: '1 proyecto', investment: '$60M USD', employment: 0 },
+                'Arauca': { viability: 45, reason: 'Potencial eólico bajo en los llanos. **Potencial Bajo**.', potential: '4.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Antioquia': { viability: 70, reason: 'Potencial alto en cañones y valles interandinos. **Potencial Medio-Alto**.', potential: '6.8 m/s promedio', projects: '4 proyectos', investment: '$220M USD', employment: 0 },
+                'Boyacá': { viability: 68, reason: 'Alto potencial en páramos (requiere estudios de impacto). **Potencial Medio-Alto**.', potential: '6.7 m/s promedio', projects: '2 proyectos', investment: '$110M USD', employment: 0 },
+                'Casanare': { viability: 40, reason: 'Vientos bajos. **Potencial Muy Bajo**.', potential: '4.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Chocó': { viability: 35, reason: 'Vientos erráticos. **Potencial Muy Bajo**.', potential: '3.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Caldas': { viability: 72, reason: 'Potencial alto en el Nevado del Ruiz (zona con restricciones). **Potencial Alto**.', potential: '7.2 m/s promedio', projects: '1 proyecto', investment: '$90M USD', employment: 0 },
+                'Risaralda': { viability: 60, reason: 'Potencial moderado en zonas montañosas. **Potencial Medio**.', potential: '6.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Quindío': { viability: 58, reason: 'Potencial moderado en zonas altas. **Potencial Medio**.', potential: '5.9 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cundinamarca': { viability: 65, reason: 'Potencial en la Sabana de Bogotá y zonas altas. **Potencial Medio**.', potential: '6.5 m/s promedio', projects: '3 proyectos', investment: '$140M USD', employment: 0 },
+                'Meta': { viability: 40, reason: 'Vientos bajos en llanos. **Potencial Muy Bajo**.', potential: '4.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Valle del Cauca': { viability: 70, reason: 'Potencial en la Cordillera Occidental. **Potencial Medio-Alto**.', potential: '6.8 m/s promedio', projects: '2 proyectos', investment: '$100M USD', employment: 0 },
+                'Tolima': { viability: 68, reason: 'Potencial en el Nevado del Tolima y zonas altas. **Potencial Medio-Alto**.', potential: '6.7 m/s promedio', projects: '1 proyecto', investment: '$80M USD', employment: 0 },
+                'Vichada': { viability: 35, reason: 'Vientos bajos en la Orinoquía. **Potencial Muy Bajo**.', potential: '3.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cauca': { viability: 75, reason: 'Potencial alto en el Macizo Colombiano. **Potencial Alto**.', potential: '7.0 m/s promedio', projects: '2 proyectos', investment: '$120M USD', employment: 0 },
+                'Huila': { viability: 60, reason: 'Potencial moderado en zonas montañosas. **Potencial Medio**.', potential: '6.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Guaviare': { viability: 30, reason: 'Vientos bajos y selva. **Potencial Muy Bajo**.', potential: '3.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Nariño': { viability: 78, reason: 'Potencial en el Pacífico sur. **Potencial Alto**.', potential: '7.3 m/s promedio', projects: '1 proyecto', investment: '$95M USD', employment: 0 },
+                'Caquetá': { viability: 25, reason: 'Vientos muy bajos. **Potencial Muy Bajo**.', potential: '2.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Putumayo': { viability: 20, reason: 'Vientos muy bajos. **Potencial Muy Bajo**.', potential: '2.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Vaupés': { viability: 15, reason: 'Vientos muy bajos y remotos. **Potencial Muy Baja**.', potential: '1.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Guainía': { viability: 10, reason: 'Vientos muy bajos y remotos. **Potencial Muy Baja**.', potential: '1.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Amazonas': { viability: 10, reason: 'Vientos muy bajos y selva amazónica. **Potencial Muy Baja**.', potential: '1.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+            },
+            hidraulica: {
+                'La Guajira': { viability: 20, reason: 'Ríos intermitentes y estacionales. **Potencial Muy Bajo**.', potential: 'Bajo caudal', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Magdalena': { viability: 50, reason: 'Potencial en el río Magdalena, pero con desafíos ambientales y sedimentación. **Potencial Medio**.', potential: 'Variable', projects: '1 proyecto', investment: '$50M USD', employment: 0 },
+                'Atlántico': { viability: 15, reason: 'Ríos de bajo caudal y llanuras. **Potencial Muy Bajo**.', potential: 'Bajo caudal', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cesar': { viability: 60, reason: 'Potencial en la Serranía del Perijá y afluentes. **Potencial Medio**.', potential: 'Mediano caudal', projects: '2 proyectos', investment: '$150M USD', employment: 0 },
+                'Bolívar': { viability: 45, reason: 'Potencial limitado. **Potencial Bajo**.', potential: 'Bajo a medio caudal', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Norte de Santander': { viability: 80, reason: 'Alta pendiente y buen régimen pluvial. **Potencial Alto**.', potential: 'Alto caudal y pendiente', projects: '4 proyectos', investment: '$350M USD', employment: 0 },
+                'Sucre': { viability: 25, reason: 'Ríos de bajo caudal. **Potencial Muy Bajo**.', potential: 'Bajo caudal', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Córdoba': { viability: 75, reason: 'Potencial en el río Sinú. **Potencial Alto**.', potential: 'Alto caudal', projects: '3 proyectos', investment: '$400M USD', employment: 0 },
+                'Santander': { viability: 85, reason: 'Ríos caudalosos con alto desnivel. **Potencial Muy Alto**.', potential: 'Alto caudal y pendiente', projects: '8 proyectos', investment: '$800M USD', employment: 0 },
+                'Arauca': { viability: 30, reason: 'Ríos de llanura con baja pendiente. **Potencial Muy Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Antioquia': { viability: 95, reason: 'Alta densidad de recursos hídricos y gran infraestructura. **Potencial Muy Alto**.', potential: 'Muy alto caudal y pendiente', projects: '15 proyectos', investment: '$2,500M USD', employment: 0 },
+                'Boyacá': { viability: 70, reason: 'Buen potencial en el río Chicamocha y otros. **Potencial Medio-Alto**.', potential: 'Medio a alto caudal', projects: '5 proyectos', investment: '$450M USD', employment: 0 },
+                'Casanare': { viability: 35, reason: 'Ríos de llanura. **Potencial Muy Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Chocó': { viability: 90, reason: 'Altísima precipitación y ríos caudalosos. **Potencial Muy Alto**.', potential: 'Extremadamente alto caudal', projects: '2 proyectos', investment: '$100M USD', employment: 0 },
+                'Caldas': { viability: 80, reason: 'Ríos con buen desnivel en zonas andinas. **Potencial Alto**.', potential: 'Alto caudal y pendiente', projects: '3 proyectos', investment: '$300M USD', employment: 0 },
+                'Risaralda': { viability: 78, reason: 'Similar a Caldas. **Potencial Alto**.', potential: 'Alto caudal y pendiente', projects: '2 proyectos', investment: '$250M USD', employment: 0 },
+                'Quindío': { viability: 75, reason: 'Buen potencial en ríos de montaña. **Potencial Alto**.', potential: 'Medio a alto caudal', projects: '1 proyecto', investment: '$150M USD', employment: 0 },
+                'Cundinamarca': { viability: 70, reason: 'Potencial concentrado en el río Bogotá y sus afluentes. **Potencial Medio-Alto**.', potential: 'Medio caudal', projects: '5 proyectos', investment: '$320M USD', employment: 0 },
+                'Meta': { viability: 40, reason: 'Ríos de llanura, potencial bajo. **Potencial Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Valle del Cauca': { viability: 85, reason: 'Ríos de la Cordillera Occidental con alto desnivel. **Potencial Muy Alto**.', potential: 'Alto caudal y pendiente', projects: '6 proyectos', investment: '$700M USD', employment: 0 },
+                'Tolima': { viability: 88, reason: 'Ríos con alto desnivel y caudal (Nevados). **Potencial Muy Alto**.', potential: 'Muy alto caudal y pendiente', projects: '7 proyectos', investment: '$900M USD', employment: 0 },
+                'Vichada': { viability: 10, reason: 'Ríos de llanura extensos, pendiente nula. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cauca': { viability: 92, reason: 'Nacimiento de varios ríos importantes, alto potencial. **Potencial Muy Alto**.', potential: 'Muy alto caudal y pendiente', projects: '5 proyectos', investment: '$600M USD', employment: 0 },
+                'Huila': { viability: 90, reason: 'Río Magdalena y afluentes con buen desnivel. **Potencial Muy Alto**.', potential: 'Alto caudal', projects: '4 proyectos', investment: '$850M USD', employment: 0 },
+                'Guaviare': { viability: 30, reason: 'Ríos de selva, baja pendiente. **Potencial Muy Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Nariño': { viability: 82, reason: 'Potencial en vertiente Pacífico y Macizo Colombiano. **Potencial Alto**.', potential: 'Alto caudal y pendiente', projects: '3 proyectos', investment: '$380M USD', employment: 0 },
+                'Caquetá': { viability: 40, reason: 'Ríos de selva. **Potencial Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Putumayo': { viability: 45, reason: 'Ríos de selva. **Potencial Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Vaupés': { viability: 15, reason: 'Ríos remotos, baja pendiente. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Guainía': { viability: 10, reason: 'Ríos remotos, pendiente nula. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Amazonas': { viability: 10, reason: 'Río Amazonas y afluentes, pendiente nula. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+            },
+            biomasa: {
+                'La Guajira': { viability: 40, reason: 'Uso de residuos agrícolas de cultivos de secano. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Magdalena': { viability: 75, reason: 'Alto potencial por industria de palma y banano. **Potencial Alto**.', potential: '20 MWp de residuos de palma/banano', projects: '3 proyectos', investment: '$75M USD', employment: 0 },
+                'Atlántico': { viability: 60, reason: 'Residuos urbanos y agroindustriales. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$40M USD', employment: 0 },
+                'Cesar': { viability: 85, reason: 'Fuerte sector de palma de aceite y ganadería. **Potencial Muy Alto**.', potential: '30 MWp de residuos de palma', projects: '4 proyectos', investment: '$120M USD', employment: 0 },
+                'Bolívar': { viability: 70, reason: 'Residuos de caña y palma. **Potencial Medio-Alto**.', potential: 'Alto', projects: '2 proyectos', investment: '$60M USD', employment: 0 },
+                'Norte de Santander': { viability: 65, reason: 'Residuos de café y agroindustriales. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$30M USD', employment: 0 },
+                'Sucre': { viability: 68, reason: 'Residuos de caña de azúcar y ganadería. **Potencial Medio-Alto**.', potential: 'Medio', projects: '1 proyecto', investment: '$35M USD', employment: 0 },
+                'Córdoba': { viability: 72, reason: 'Gran potencial de residuos de palma, arroz y ganadería. **Potencial Medio-Alto**.', potential: 'Alto', projects: '2 proyectos', investment: '$55M USD', employment: 0 },
+                'Santander': { viability: 70, reason: 'Potencial en café, cacao y palma. **Potencial Medio-Alto**.', potential: 'Medio', projects: '3 proyectos', investment: '$80M USD', employment: 0 },
+                'Arauca': { viability: 55, reason: 'Residuos de arroz y ganadería. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$20M USD', employment: 0 },
+                'Antioquia': { viability: 80, reason: 'Diversidad de residuos agroindustriales (café, plátano, etc.). **Potencial Alto**.', potential: 'Alto', projects: '5 proyectos', investment: '$150M USD', employment: 0 },
+                'Boyacá': { viability: 60, reason: 'Residuos de agricultura andina y ganadería. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$25M USD', employment: 0 },
+                'Casanare': { viability: 65, reason: 'Residuos de palma y arroz. **Potencial Medio-Alto**.', potential: 'Medio', projects: '2 proyectos', investment: '$45M USD', employment: 0 },
+                'Chocó': { viability: 45, reason: 'Residuos forestales y plátano. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Caldas': { viability: 75, reason: 'Fuerte potencial en residuos de café. **Potencial Alto**.', potential: 'Alto', projects: '3 proyectos', investment: '$90M USD', employment: 0 },
+                'Risaralda': { viability: 73, reason: 'Potencial en residuos de café. **Potencial Alto**.', potential: 'Alto', projects: '2 proyectos', investment: '$70M USD', employment: 0 },
+                'Quindío': { viability: 70, reason: 'Potencial en residuos de café. **Potencial Medio-Alto**.', potential: 'Medio-Alto', projects: '1 proyecto', investment: '$40M USD', employment: 0 },
+                'Cundinamarca': { viability: 68, reason: 'Residuos urbanos y agrícolas. **Potencial Medio-Alto**.', potential: 'Medio', projects: '4 proyectos', investment: '$100M USD', employment: 0 },
+                'Meta': { viability: 82, reason: 'Líder en residuos de palma de aceite y agroindustria. **Potencial Alto**.', potential: 'Muy alto', projects: '4 proyectos', investment: '$110M USD', employment: 0 },
+                'Valle del Cauca': { viability: 95, reason: 'Concentración de industria azucarera (bagazo). **Potencial Muy Alto**.', potential: 'Gran potencial en bagazo de caña', projects: '10 proyectos', investment: '$300M USD', employment: 0 },
+                'Tolima': { viability: 78, reason: 'Residuos de arroz y café. **Potencial Alto**.', potential: 'Alto', projects: '3 proyectos', investment: '$95M USD', employment: 0 },
+                'Vichada': { viability: 30, reason: 'Baja densidad de biomasa. **Potencial Muy Bajo**.', potential: 'Muy bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cauca': { viability: 70, reason: 'Potencial en residuos de caña y café. **Potencial Medio-Alto**.', potential: 'Medio-Alto', projects: '2 proyectos', investment: '$60M USD', employment: 0 },
+                'Huila': { viability: 75, reason: 'Potencial en residuos de café. **Potencial Alto**.', potential: 'Alto', projects: '2 proyectos', investment: '$70M USD', employment: 0 },
+                'Guaviare': { viability: 25, reason: 'Selva y baja densidad de actividad económica. **Potencial Muy Bajo**.', potential: 'Muy bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Nariño': { viability: 60, reason: 'Residuos de caña panelera y café. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$30M USD', employment: 0 },
+                'Caquetá': { viability: 50, reason: 'Residuos de ganadería y palma. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Putumayo': { viability: 40, reason: 'Potencial forestal limitado. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Vaupés': { viability: 10, reason: 'Remoto y denso, sin infraestructura de gestión de residuos. **Potencial Muy Baja**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Guainía': { viability: 10, reason: 'Remoto y denso, sin infraestructura de gestión de residuos. **Potencial Muy Baja**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Amazonas': { viability: 10, reason: 'Selva amazónica y restricciones ambientales. **Potencial Muy Baja**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+            },
+            geotermica: {
+                'La Guajira': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Magdalena': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Atlántico': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cesar': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Bolívar': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Norte de Santander': { viability: 30, reason: 'Potencial exploratorio asociado a fallas. **Potencial Muy Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Sucre': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Córdoba': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Santander': { viability: 50, reason: 'Puntos de interés termal para baja entalpía. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto de estudio', investment: '$10M USD', employment: 0 },
+                'Arauca': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Antioquia': { viability: 60, reason: 'Cercanía a volcanes (ej. Romeral). **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto de estudio', investment: '$15M USD', employment: 0 },
+                'Boyacá': { viability: 40, reason: 'Zonas termales, potencial de baja entalpía. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Casanare': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Chocó': { viability: 15, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Caldas': { viability: 95, reason: 'Concentración de actividad volcánica (eje cafetero). **Potencial Muy Alto**.', potential: 'Alto potencial de alta entalpía', projects: '3 proyectos de exploración', investment: '$50M USD', employment: 0 },
+                'Risaralda': { viability: 90, reason: 'Concentración de actividad volcánica. **Potencial Muy Alto**.', potential: 'Alto potencial de alta entalpía', projects: '2 proyectos de exploración', investment: '$40M USD', employment: 0 },
+                'Quindío': { viability: 85, reason: 'Cercanía a la actividad volcánica. **Potencial Alto**.', potential: 'Medio-alto potencial', projects: '1 proyecto de exploración', investment: '$20M USD', employment: 0 },
+                'Cundinamarca': { viability: 20, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Meta': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Valle del Cauca': { viability: 70, reason: 'Potencial asociado a la Cordillera Occidental. **Potencial Medio-Alto**.', potential: 'Medio', projects: '1 proyecto de estudio', investment: '$15M USD', employment: 0 },
+                'Tolima': { viability: 88, reason: 'Actividad volcánica (Nevado del Tolima). **Potencial Muy Alto**.', potential: 'Alto potencial de alta entalpía', projects: '2 proyectos de exploración', investment: '$45M USD', employment: 0 },
+                'Vichada': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cauca': { viability: 80, reason: 'Actividad volcánica en el Macizo Colombiano. **Potencial Alto**.', potential: 'Alto potencial', projects: '2 proyectos de exploración', investment: '$35M USD', employment: 0 },
+                'Huila': { viability: 75, reason: 'Cercanía a volcanes del sur. **Potencial Alto**.', potential: 'Medio-alto', projects: '1 proyecto de exploración', investment: '$25M USD', employment: 0 },
+                'Guaviare': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Nariño': { viability: 92, reason: 'Concentración de volcanes activos (Galeras, Cumbal). **Potencial Muy Alto**.', potential: 'Muy alto potencial', projects: '3 proyectos de exploración', investment: '$60M USD', employment: 0 },
+                'Caquetá': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Putumayo': { viability: 10, reason: 'Potencial exploratorio muy bajo. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Vaupés': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Guainía': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Amazonas': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+            },
+            mareomotriz: {
+                'La Guajira': { viability: 50, reason: 'Potencial de olas y corrientes en zonas específicas. **Potencial Medio**.', potential: 'Moderado de corrientes', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Magdalena': { viability: 40, reason: 'Potencial bajo de corrientes costeras. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Atlántico': { viability: 45, reason: 'Potencial de olas y corrientes. **Potencial Bajo**.', potential: 'Bajo a moderado', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cesar': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Bolívar': { viability: 35, reason: 'Potencial bajo de corrientes. **Potencial Muy Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Norte de Santander': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Sucre': { viability: 40, reason: 'Potencial en el Golfo de Morrosquillo. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Córdoba': { viability: 42, reason: 'Potencial en el Golfo de Morrosquillo. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Santander': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Arauca': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Antioquia': { viability: 20, reason: 'Potencial bajo en la costa de Urabá. **Potencial Muy Bajo**.', potential: 'Muy bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Boyacá': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Casanare': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Chocó': { viability: 65, reason: 'Potencial de olas y corrientes en el Pacífico. **Potencial Medio-Alto**.', potential: 'Medio-alto de olas/corrientes', projects: '1 proyecto de estudio', investment: '$5M USD', employment: 0 },
+                'Caldas': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Risaralda': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Quindío': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cundinamarca': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Meta': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Valle del Cauca': { viability: 70, reason: 'Potencial alto en la costa Pacífica (Bahía de Buenaventura). **Potencial Medio-Alto**.', potential: 'Alto de olas/corrientes', projects: '1 proyecto de estudio', investment: '$10M USD', employment: 0 },
+                'Tolima': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Vichada': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cauca': { viability: 68, reason: 'Potencial de olas en el Pacífico. **Potencial Medio-Alto**.', potential: 'Medio-alto', projects: '1 proyecto de estudio', investment: '$8M USD', employment: 0 },
+                'Huila': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Guaviare': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Nariño': { viability: 75, reason: 'Potencial de olas y corrientes en el Pacífico sur. **Potencial Alto**.', potential: 'Alto', projects: '1 proyecto de estudio', investment: '$12M USD', employment: 0 },
+                'Caquetá': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Putumayo': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Vaupés': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Guainía': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Amazonas': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+            },
+        };
+
+        let currentEnergy = 'solar';
+        let currentSelectedDepartment = null;
+        let currentSelectedElement = null;
+
+        // --- FUNCIONES DE LÓGICA DEL DASHBOARD ---
+
+        /**
+         * Asigna una clase CSS basada en la puntuación de viabilidad (0-100).
+         * @param {number} score Puntuación de viabilidad.
+         * @returns {string} Clase CSS correspondiente.
+         */
+        function getViabilityClass(score) {
+            if (score >= 90) return 'viability-muy-alta';
+            if (score >= 75) return 'viability-alta';
+            if (score >= 55) return 'viability-media';
+            if (score >= 35) return 'viability-baja';
+            return 'viability-muy-baja';
+        }
+
+        /**
+         * Traduce la puntuación de viabilidad a un texto legible.
+         * @param {number} score Puntuación de viabilidad.
+         * @returns {string} Nivel de viabilidad en español.
+         */
+        function getViabilityText(score) {
+            if (score >= 90) return 'Muy Alta';
+            if (score >= 75) return 'Alta';
+            if (score >= 55) return 'Media';
+            if (score >= 35) return 'Baja';
+            return 'Muy Baja';
+        }
+
+        /**
+         * Actualiza el mapa con la visualización de la energía seleccionada.
+         * @param {string} energyType El tipo de energía a visualizar (ej. 'solar').
+         * @param {HTMLElement} element El botón que fue clicado (opcional).
+         */
+        function updateMapVisualization(energyType, element) {
+            currentEnergy = energyType;
+
+            // 1. Actualizar el estado de los botones
+            document.querySelectorAll('.energy-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            if (element) {
+                element.classList.add('active');
+            } else {
+                // Si se llama desde init, activa el botón por defecto
+                document.querySelector(`.energy-button[data-energy="${energyType}"]`).classList.add('active');
+            }
+
+            // 2. Actualizar el color de los departamentos
+            const departments = document.querySelectorAll('.department');
+            departments.forEach(path => {
+                const deptName = path.getAttribute('data-dept');
+                const deptData = energyData[energyType] ? energyData[energyType][deptName] : null;
+
+                // Remover clases de viabilidad y la clase 'selected'
+                path.classList.remove('viability-muy-alta', 'viability-alta', 'viability-media', 'viability-baja', 'viability-muy-baja', 'selected-department');
+
+                if (deptData) {
+                    const viabilityClass = getViabilityClass(deptData.viability);
+                    path.classList.add(viabilityClass);
+                } else {
+                    // Si no hay datos, se podría asignar un color gris por defecto
+                    path.style.fill = '#475569'; // slate-600
+                }
+            });
+            
+            // 3. Re-seleccionar el departamento si había uno seleccionado, para actualizar el panel
+            if (currentSelectedDepartment) {
+                const deptElement = document.querySelector(`.department[data-dept="${currentSelectedDepartment}"]`);
+                if (deptElement) {
+                     // Llama de nuevo para actualizar el panel con la nueva data de energía
+                    showDepartmentDetails(currentSelectedDepartment, deptElement);
+                }
+            } else {
+                // Limpiar el panel si se cambia de energía y no hay departamento seleccionado
+                document.getElementById('panel-content').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">ℹ️</div>
+                        <p>Selecciona un departamento en el mapa para ver información detallada sobre su viabilidad energética</p>
+                    </div>
+                `;
+            }
+        }
+
+        /**
+         * Muestra la información detallada del departamento seleccionado en el panel.
+         * @param {string} departmentName Nombre del departamento.
+         * @param {HTMLElement} element El elemento SVG del departamento.
+         */
+        function showDepartmentDetails(departmentName, element) {
+            const data = energyData[currentEnergy] ? energyData[currentEnergy][departmentName] : null;
+
+            // Limpiar selección previa
+            if (currentSelectedElement) {
+                currentSelectedElement.classList.remove('selected-department');
+            }
+
+            // Marcar nueva selección
+            element.classList.add('selected-department');
+            currentSelectedElement = element;
+            currentSelectedDepartment = departmentName;
+
+            const panelContent = document.getElementById('panel-content');
+
+            if (!data) {
+                panelContent.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">❌</div>
+                        <p>No hay datos de viabilidad de **${currentEnergy.toUpperCase()}** disponibles para **${departmentName}**.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const viabilityText = getViabilityText(data.viability);
+            const viabilityClass = getViabilityClass(data.viability);
+            const progressColor = getComputedStyle(document.querySelector(`.${viabilityClass}`)).fill;
+
+            panelContent.innerHTML = `
+                <div class="department-info">
+                    <h3>${departmentName}</h3>
+                    <div class="energy-type">${currentEnergy.toUpperCase().replace('EÓLICA', 'EÓLICA').replace('HIDRAULICA', 'HIDRÁULICA').replace('GEOTERMICA', 'GEOTÉRMICA').replace('MAREOMOTRIZ', 'MAREOMOTRIZ')}</div>
+
+                    <div class="viability-section">
+                        <div class="viability-header">
+                            <div class="viability-label">Puntuación de Viabilidad (0-100)</div>
+                            <div class="viability-value" style="color: ${progressColor};">${data.viability} / 100</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${data.viability}%; background: ${progressColor};"></div>
+                        </div>
+                        <p style="margin-top: 12px; font-size: 14px; color: ${progressColor}; font-weight: 600;">Nivel: ${viabilityText}</p>
+                    </div>
+
+                    <div class="data-grid">
+                        <div class="data-item">
+                            <div class="data-label">Potencial Típico</div>
+                            <div class="data-value">${data.potential}</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">Proyectos Activos</div>
+                            <div class="data-value">${data.projects}</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">Inversión (Estimada)</div>
+                            <div class="data-value">${data.investment}</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">Empleo Directo (Est.)</div>
+                            <div class="data-value">${data.employment.toLocaleString()}</div>
+                        </div>
+                    </div>
+
+                    <div class="details-section">
+                        <h4>Razón Principal</h4>
+                        <p>${data.reason}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        /**
+         * Inicializa el dashboard al cargar la página.
+         */
+        function initDashboard() {
+            // Cargar la visualización por defecto (Solar)
+            updateMapVisualization('solar');
+
+            // Actualizar las etiquetas de los departamentos para que se vean bien en el color de fondo (si el fill es muy oscuro)
+            const map = document.getElementById('colombia-map');
+            const labels = map.querySelectorAll('.department-label');
+            labels.forEach(label => {
+                label.setAttribute('fill', '#0f172a'); // Fondo oscuro para letras claras
+            });
+        }
+
+        // --- FUNCIONES DEL CHATBOT ---
+
+        function toggleChatbot() {
+            document.getElementById('chatbot').classList.toggle('open');
+        }
+
+        function addMessage(text, sender) {
+            const messages = document.getElementById('messages');
+            const newMessage = document.createElement('div');
+            newMessage.classList.add('message', sender);
+            newMessage.innerHTML = text; // Usar innerHTML para respetar markdown básico
+            messages.appendChild(newMessage);
+            messages.scrollTop = messages.scrollHeight; // Auto-scroll
+        }
+
+        function askQuestion(question) {
+            addMessage(question, 'user');
+            processQuery(question);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (text === '') return;
+
+            addMessage(text, 'user');
+            processQuery(text);
+            input.value = '';
+        }
+
+        function processQuery(query) {
+            const lower = query.toLowerCase();
+            let response = '';
+
+            // Lógica simple para respuestas predefinidas
+            if (lower.includes('financiamiento') || lower.includes('crédito') || lower.includes('fnd')) {
+                response = 'El financiamiento en Colombia incluye líneas de crédito verde del **FINDETER** y **Bancóldex**, así como exenciones tributarias (IVA, arancel, renta) a través de la **Ley 1715 de 2014** y sus decretos reglamentarios. El **Fondo de Energías No Convencionales y Gestión Eficiente de la Energía (FENOGE)** también ofrece co-financiamiento para proyectos piloto.';
+            } else if (lower.includes('implementación') || lower.includes('pasos') || lower.includes('requisitos')) {
+                response = 'Los pasos típicos son: 1. **Estudios de recurso** (Viabilidad), 2. **Pre-factibilidad y Factibilidad** (Diseño e Ingeniería), 3. **Obtención de Licencias** (Ambiental y de Construcción), 4. **Registro UPME** (Si aplica a gran escala), 5. **Financiamiento**, 6. **Construcción** y 7. **Puesta en Operación**.';
+            } else if (lower.includes('la guajira') || lower.includes('guajira')) {
+                response = '**La Guajira** es el departamento con mayor potencial de Colombia para **Energía Eólica** (vientos de clase 7) y **Energía Solar** (radiación de planta superior (40-50%). Colombia tiene potencial de 50+ GW eólicos, principalmente en la costa Caribe y zonas montañosas.';
+            } else if (lower.includes('empleo') || lower.includes('trabajo')) {
+                const depts = ['La Guajira', 'Magdalena', 'Atlántico', 'Cesar'];
+                const totalJobs = depts.reduce((sum, dept) => {
+                    return sum + energyData.solar[dept].employment + 
+                           energyData.eolica[dept].employment + 
+                           energyData.hidraulica[dept].employment + 
+                           energyData.biomasa[dept].employment;
+                }, 0);
+                response = `Las energías renovables han generado ${totalJobs.toLocaleString()} empleos directos en la región Caribe (2019-2024). La Guajira lidera con proyectos eólicos, seguida por Cesar en biomasa. Cada MW instalado genera aproximadamente 5-7 empleos directos durante construcción y 0.2-0.5 empleos permanentes en operación.`;
+            } else {
+                response = 'Puedo ayudarte con información sobre: financiamiento disponible, pasos de implementación, viabilidad por departamento, tipos de energía renovable, impacto económico y empleo. ¿Sobre qué tema específico te gustaría saber más?';
+            }
+
+            addMessage(response, 'bot');
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>
