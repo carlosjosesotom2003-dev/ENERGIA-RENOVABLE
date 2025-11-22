@@ -350,6 +350,24 @@
             font-weight: 600;
             color: #f1f5f9;
         }
+        
+        /* New QR Block Styling (NUEVO) */
+        .qr-panel-block {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .qr-panel-block img {
+            display: block;
+            margin: 0 auto;
+            max-width: 150px;
+            border: 4px solid #f1f5f9;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
 
         /* Chatbot */
         .chatbot-button {
@@ -674,7 +692,12 @@
                         <p>Selecciona un departamento en el mapa para ver información detallada sobre su viabilidad energética</p>
                     </div>
                 </div>
-            </div>
+
+                <div class="qr-panel-block">
+                    <p style="font-size: 14px; color: #94a3b8; margin-bottom: 10px;">Escanéa para iniciar el Chatbot Landbot:</p>
+                    <img src="https://i.pinimg.com/736x/14/4a/70/144a7059cec68add0f1dfd998367dd7e.jpg" alt="Código QR del Chatbot Landbot">
+                </div>
+                </div>
         </div>
     </div>
 
@@ -697,13 +720,13 @@
                 'Casanare': { viability: 75, reason: 'Excelentes condiciones en los llanos. **Potencial Alto**.', potential: '1,900 kWh/m²/año', projects: '3 proyectos', investment: '$110M USD', employment: 0 },
                 'Chocó': { viability: 40, reason: 'Alta nubosidad y precipitación limitan potencial solar. **Potencial Baja**.', potential: '1,200 kWh/m²/año', projects: '1 proyecto', investment: '$30M USD', employment: 0 },
                 'Caldas': { viability: 65, reason: 'Potencial moderado en zonas de menor altitud. **Potencial Medio**.', potential: '1,650 kWh/m²/año', projects: '2 proyectos', investment: '$75M USD', employment: 0 },
-                'Risaralda': { viability: 62, reason: 'Condiciones similares a eje cafetero, nubosidad media. **Potencial Medio**.', potential: '1,600 kWh/m²/año', projects: '2 proyectos', investment: '$65M USD', employment: 0 },
-                'Quindío': { viability: 63, reason: 'Potencial limitado por clima cafetero. **Potencial Medio**.', potential: '1,620 kWh/m²/año', projects: '1 proyecto', investment: '$50M USD', employment: 0 },
-                'Cundinamarca': { viability: 78, reason: 'Buena radiación en sabana, infraestructura cercana a Bogotá. **Potencial Alto**.', potential: '1,950 kWh/m²/año', projects: '9 proyectos', investment: '$280M USD', employment: 0 },
-                'Meta': { viability: 73, reason: 'Condiciones favorables en piedemonte llanero. **Potencial Medio**.', potential: '1,870 kWh/m²/año', projects: '4 proyectos', investment: '$130M USD', employment: 0 },
-                'Valle del Cauca': { viability: 77, reason: 'Buen potencial en valle geográfico. **Potencial Alto**.', potential: '1,920 kWh/m²/año', projects: '6 proyectos', investment: '$200M USD', employment: 0 },
-                'Tolima': { viability: 82, reason: 'Excelente radiación en valle del Magdalena. **Potencial Alto**.', potential: '2,050 kWh/m²/año', projects: '5 proyectos', investment: '$175M USD', employment: 0 },
-                'Vichada': { viability: 80, reason: 'Alto potencial en región de llanos, poca infraestructura. **Potencial Alto**.', potential: '2,000 kWh/m²/año', projects: '1 proyecto', investment: '$60M USD', employment: 0 },
+                'Risaralda': { viability: 62, reason: 'Potencial moderado, afectado por topografía. **Potencial Medio**.', potential: '1,620 kWh/m²/año', projects: '1 proyecto', investment: '$60M USD', employment: 0 },
+                'Quindío': { viability: 64, reason: 'Potencial moderado en zonas de menor altitud. **Potencial Medio**.', potential: '1,640 kWh/m²/año', projects: '1 proyecto', investment: '$55M USD', employment: 0 },
+                'Cundinamarca': { viability: 70, reason: 'Buena radiación en Sabana de Bogotá y valles. **Potencial Medio-Alto**.', potential: '1,800 kWh/m²/año', projects: '5 proyectos', investment: '$170M USD', employment: 0 },
+                'Meta': { viability: 75, reason: 'Excelentes condiciones en la llanura. **Potencial Alto**.', potential: '1,900 kWh/m²/año', projects: '4 proyectos', investment: '$130M USD', employment: 0 },
+                'Valle del Cauca': { viability: 78, reason: 'Potencial alto en el valle geográfico. **Potencial Alto**.', potential: '1,950 kWh/m²/año', projects: '6 proyectos', investment: '$250M USD', employment: 0 },
+                'Tolima': { viability: 75, reason: 'Buena radiación en el valle del río Magdalena. **Potencial Alto**.', potential: '1,900 kWh/m²/año', projects: '3 proyectos', investment: '$125M USD', employment: 0 },
+                'Vichada': { viability: 68, reason: 'Potencial moderado, aunque remoto. **Potencial Medio**.', potential: '1,750 kWh/m²/año', projects: '1 proyecto', investment: '$50M USD', employment: 0 },
                 'Cauca': { viability: 70, reason: 'Potencial variable por topografía diversa. **Potencial Medio**.', potential: '1,800 kWh/m²/año', projects: '3 proyectos', investment: '$105M USD', employment: 0 },
                 'Huila': { viability: 76, reason: 'Buena radiación en valle del Alto Magdalena. **Potencial Alto**.', potential: '1,900 kWh/m²/año', projects: '4 proyectos', investment: '$155M USD', employment: 0 },
                 'Guaviare': { viability: 55, reason: 'Bosques densos y nubosidad limitan la radiación. **Potencial Medio-Bajo**.', potential: '1,500 kWh/m²/año', projects: '1 proyecto', investment: '$25M USD', employment: 0 },
@@ -711,29 +734,26 @@
                 'Caquetá': { viability: 50, reason: 'Región de Amazonía, alta nubosidad y precipitación. **Potencial Bajo**.', potential: '1,400 kWh/m²/año', projects: '1 proyecto', investment: '$40M USD', employment: 0 },
                 'Putumayo': { viability: 45, reason: 'Región de Amazonía, alta nubosidad y precipitación. **Potencial Bajo**.', potential: '1,300 kWh/m²/año', projects: '1 proyecto', investment: '$35M USD', employment: 0 },
                 'Vaupés': { viability: 50, reason: 'Remoto y denso, baja infraestructura. **Potencial Bajo**.', potential: '1,450 kWh/m²/año', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Guainía': { viability: 55, reason: 'Remoto y denso, nubosidad. **Potencial Medio-Bajo**.', potential: '1,500 kWh/m²/año', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Amazonas': { viability: 40, reason: 'Selva amazónica, alta nubosidad. **Potencial Muy Bajo**.', potential: '1,200 kWh/m²/año', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                // Departamentos Costeros/Insulares sin figura en el mapa simplificado, se asignan al departamento más cercano para la lógica
-                'San Andrés y Providencia': { viability: 85, reason: 'Potencial solar ideal para autoconsumo en islas. **Potencial Alto**.', potential: '2,100 kWh/m²/año', projects: '1 proyecto', investment: '$10M USD', employment: 0 },
-                'Bogotá D.C.': { viability: 70, reason: 'Uso en cubiertas de edificios, alta demanda. **Potencial Medio**.', potential: '1,800 kWh/m²/año', projects: '10 proyectos', investment: '$300M USD', employment: 0 },
+                'Guainía': { viability: 60, reason: 'Remoto, pero con buena radiación. **Potencial Medio**.', potential: '1,600 kWh/m²/año', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Amazonas': { viability: 30, reason: 'Selva amazónica y restricciones ambientales. **Potencial Muy Bajo**.', potential: '1,100 kWh/m²/año', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
             },
             eolica: {
-                'La Guajira': { viability: 98, reason: 'Vientos constantes y de alta velocidad (clase 7) lo convierten en la zona con mayor potencial eólico de Latam. **Potencial Muy Alto**.', potential: '9 m/s promedio', projects: '20 proyectos activos', investment: '$1,200M USD', employment: 6512 },
-                'Magdalena': { viability: 80, reason: 'Potencial alto en la costa, complementario al solar. **Potencial Alto**.', potential: '7.5 m/s promedio', projects: '5 proyectos', investment: '$300M USD', employment: 1800 },
+                'La Guajira': { viability: 98, reason: 'Vientos constantes y de alta velocidad (Clase 7). **Potencial Máximo**.', potential: '9.8 m/s promedio', projects: '20 proyectos activos', investment: '$5B USD', employment: 8500 },
+                'Magdalena': { viability: 80, reason: 'Buen recurso eólico en la costa, complementario al solar. **Potencial Alto**.', potential: '7.5 m/s promedio', projects: '5 proyectos', investment: '$300M USD', employment: 1800 },
                 'Atlántico': { viability: 75, reason: 'Buen recurso eólico costero, cercano a la red. **Potencial Alto**.', potential: '7.0 m/s promedio', projects: '3 proyectos', investment: '$150M USD', employment: 0 },
                 'Cesar': { viability: 60, reason: 'Potencial moderado, principalmente en serranía. **Potencial Medio**.', potential: '6.0 m/s promedio', projects: '1 proyecto', investment: '$50M USD', employment: 0 },
                 'Bolívar': { viability: 50, reason: 'Potencial bajo en la costa. **Potencial Bajo**.', potential: '5.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Norte de Santander': { viability: 65, reason: 'Potencial en zonas montañosas altas. **Potencial Medio**.', potential: '6.5 m/s promedio', projects: '2 proyectos', investment: '$70M USD', employment: 0 },
                 'Sucre': { viability: 55, reason: 'Potencial moderado en la región. **Potencial Medio**.', potential: '5.8 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Córdoba': { viability: 58, reason: 'Potencial moderado en la región costera. **Potencial Medio**.', potential: '6.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Santander': { viability: 62, reason: 'Potencial en picos y páramos. **Potencial Medio**.', potential: '6.3 m/s promedio', projects: '1 proyecto', investment: '$60M USD', employment: 0 },
-                'Arauca': { viability: 45, reason: 'Potencial eólico bajo en los llanos. **Potencial Bajo**.', potential: '4.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Antioquia': { viability: 70, reason: 'Potencial alto en cañones y valles interandinos. **Potencial Medio-Alto**.', potential: '6.8 m/s promedio', projects: '4 proyectos', investment: '$220M USD', employment: 0 },
-                'Boyacá': { viability: 68, reason: 'Alto potencial en páramos (requiere estudios de impacto). **Potencial Medio-Alto**.', potential: '6.7 m/s promedio', projects: '2 proyectos', investment: '$110M USD', employment: 0 },
-                'Casanare': { viability: 40, reason: 'Vientos bajos. **Potencial Muy Bajo**.', potential: '4.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Chocó': { viability: 35, reason: 'Vientos erráticos. **Potencial Muy Bajo**.', potential: '3.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Caldas': { viability: 72, reason: 'Potencial alto en el Nevado del Ruiz (zona con restricciones). **Potencial Alto**.', potential: '7.2 m/s promedio', projects: '1 proyecto', investment: '$90M USD', employment: 0 },
-                'Risaralda': { viability: 60, reason: 'Potencial moderado en zonas montañosas. **Potencial Medio**.', potential: '6.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Santander': { viability: 62, reason: 'Potencial en picos y páramos. **Potencial Medio**.', potential: '6.3 m/s promedio', projects: '1 proyecto', investment: '$40M USD', employment: 0 },
+                'Arauca': { viability: 40, reason: 'Vientos bajos en los llanos orientales. **Potencial Muy Bajo**.', potential: '4.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Antioquia': { viability: 55, reason: 'Potencial en zonas montañosas. **Potencial Medio**.', potential: '5.7 m/s promedio', projects: '1 proyecto', investment: '$60M USD', employment: 0 },
+                'Boyacá': { viability: 60, reason: 'Potencial en altiplano y páramos. **Potencial Medio**.', potential: '6.1 m/s promedio', projects: '1 proyecto', investment: '$55M USD', employment: 0 },
+                'Casanare': { viability: 30, reason: 'Vientos bajos en los llanos. **Potencial Muy Bajo**.', potential: '3.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Chocó': { viability: 45, reason: 'Vientos moderados en la costa Pacífica. **Potencial Bajo**.', potential: '5.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Caldas': { viability: 60, reason: 'Potencial moderado en zonas montañosas. **Potencial Medio**.', potential: '6.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Risaralda': { viability: 58, reason: 'Potencial moderado en zonas altas. **Potencial Medio**.', potential: '5.9 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Quindío': { viability: 58, reason: 'Potencial moderado en zonas altas. **Potencial Medio**.', potential: '5.9 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Cundinamarca': { viability: 65, reason: 'Potencial en la Sabana de Bogotá y zonas altas. **Potencial Medio**.', potential: '6.5 m/s promedio', projects: '3 proyectos', investment: '$140M USD', employment: 0 },
                 'Meta': { viability: 40, reason: 'Vientos bajos en llanos. **Potencial Muy Bajo**.', potential: '4.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
@@ -741,72 +761,72 @@
                 'Tolima': { viability: 68, reason: 'Potencial en el Nevado del Tolima y zonas altas. **Potencial Medio-Alto**.', potential: '6.7 m/s promedio', projects: '1 proyecto', investment: '$80M USD', employment: 0 },
                 'Vichada': { viability: 35, reason: 'Vientos bajos en la Orinoquía. **Potencial Muy Bajo**.', potential: '3.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Cauca': { viability: 75, reason: 'Potencial alto en el Macizo Colombiano. **Potencial Alto**.', potential: '7.0 m/s promedio', projects: '2 proyectos', investment: '$120M USD', employment: 0 },
-                'Huila': { viability: 60, reason: 'Potencial moderado en zonas montañosas. **Potencial Medio**.', potential: '6.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Guaviare': { viability: 30, reason: 'Vientos bajos y selva. **Potencial Muy Bajo**.', potential: '3.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Nariño': { viability: 78, reason: 'Potencial en el Pacífico sur. **Potencial Alto**.', potential: '7.3 m/s promedio', projects: '1 proyecto', investment: '$95M USD', employment: 0 },
-                'Caquetá': { viability: 25, reason: 'Vientos muy bajos. **Potencial Muy Bajo**.', potential: '2.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Putumayo': { viability: 20, reason: 'Vientos muy bajos. **Potencial Muy Bajo**.', potential: '2.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Vaupés': { viability: 15, reason: 'Vientos muy bajos y remotos. **Potencial Muy Baja**.', potential: '1.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Huila': { viability: 65, reason: 'Potencial en zonas montañosas. **Potencial Medio**.', potential: '6.5 m/s promedio', projects: '1 proyecto', investment: '$75M USD', employment: 0 },
+                'Guaviare': { viability: 20, reason: 'Vientos muy bajos. **Potencial Muy Bajo**.', potential: '2.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Nariño': { viability: 80, reason: 'Potencial en la costa Pacífica y zonas altas. **Potencial Alto**.', potential: '7.5 m/s promedio', projects: '3 proyectos', investment: '$150M USD', employment: 0 },
+                'Caquetá': { viability: 15, reason: 'Vientos muy bajos y selva amazónica. **Potencial Muy Bajo**.', potential: '1.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Putumayo': { viability: 15, reason: 'Vientos muy bajos y selva amazónica. **Potencial Muy Bajo**.', potential: '1.5 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Vaupés': { viability: 10, reason: 'Vientos muy bajos y remotos. **Potencial Muy Baja**.', potential: '1.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Guainía': { viability: 10, reason: 'Vientos muy bajos y remotos. **Potencial Muy Baja**.', potential: '1.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Amazonas': { viability: 10, reason: 'Vientos muy bajos y selva amazónica. **Potencial Muy Baja**.', potential: '1.0 m/s promedio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
             },
             hidraulica: {
                 'La Guajira': { viability: 20, reason: 'Ríos intermitentes y estacionales. **Potencial Muy Bajo**.', potential: 'Bajo caudal', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Magdalena': { viability: 50, reason: 'Potencial en el río Magdalena, pero con desafíos ambientales y sedimentación. **Potencial Medio**.', potential: 'Variable', projects: '1 proyecto', investment: '$50M USD', employment: 0 },
-                'Atlántico': { viability: 15, reason: 'Ríos de bajo caudal y llanuras. **Potencial Muy Bajo**.', potential: 'Bajo caudal', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Cesar': { viability: 60, reason: 'Potencial en la Serranía del Perijá y afluentes. **Potencial Medio**.', potential: 'Mediano caudal', projects: '2 proyectos', investment: '$150M USD', employment: 0 },
-                'Bolívar': { viability: 45, reason: 'Potencial limitado. **Potencial Bajo**.', potential: 'Bajo a medio caudal', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Norte de Santander': { viability: 80, reason: 'Alta pendiente y buen régimen pluvial. **Potencial Alto**.', potential: 'Alto caudal y pendiente', projects: '4 proyectos', investment: '$350M USD', employment: 0 },
-                'Sucre': { viability: 25, reason: 'Ríos de bajo caudal. **Potencial Muy Bajo**.', potential: 'Bajo caudal', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Córdoba': { viability: 75, reason: 'Potencial en el río Sinú. **Potencial Alto**.', potential: 'Alto caudal', projects: '3 proyectos', investment: '$400M USD', employment: 0 },
-                'Santander': { viability: 85, reason: 'Ríos caudalosos con alto desnivel. **Potencial Muy Alto**.', potential: 'Alto caudal y pendiente', projects: '8 proyectos', investment: '$800M USD', employment: 0 },
-                'Arauca': { viability: 30, reason: 'Ríos de llanura con baja pendiente. **Potencial Muy Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Antioquia': { viability: 95, reason: 'Alta densidad de recursos hídricos y gran infraestructura. **Potencial Muy Alto**.', potential: 'Muy alto caudal y pendiente', projects: '15 proyectos', investment: '$2,500M USD', employment: 0 },
-                'Boyacá': { viability: 70, reason: 'Buen potencial en el río Chicamocha y otros. **Potencial Medio-Alto**.', potential: 'Medio a alto caudal', projects: '5 proyectos', investment: '$450M USD', employment: 0 },
-                'Casanare': { viability: 35, reason: 'Ríos de llanura. **Potencial Muy Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Chocó': { viability: 90, reason: 'Altísima precipitación y ríos caudalosos. **Potencial Muy Alto**.', potential: 'Extremadamente alto caudal', projects: '2 proyectos', investment: '$100M USD', employment: 0 },
-                'Caldas': { viability: 80, reason: 'Ríos con buen desnivel en zonas andinas. **Potencial Alto**.', potential: 'Alto caudal y pendiente', projects: '3 proyectos', investment: '$300M USD', employment: 0 },
-                'Risaralda': { viability: 78, reason: 'Similar a Caldas. **Potencial Alto**.', potential: 'Alto caudal y pendiente', projects: '2 proyectos', investment: '$250M USD', employment: 0 },
-                'Quindío': { viability: 75, reason: 'Buen potencial en ríos de montaña. **Potencial Alto**.', potential: 'Medio a alto caudal', projects: '1 proyecto', investment: '$150M USD', employment: 0 },
-                'Cundinamarca': { viability: 70, reason: 'Potencial concentrado en el río Bogotá y sus afluentes. **Potencial Medio-Alto**.', potential: 'Medio caudal', projects: '5 proyectos', investment: '$320M USD', employment: 0 },
-                'Meta': { viability: 40, reason: 'Ríos de llanura, potencial bajo. **Potencial Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Valle del Cauca': { viability: 85, reason: 'Ríos de la Cordillera Occidental con alto desnivel. **Potencial Muy Alto**.', potential: 'Alto caudal y pendiente', projects: '6 proyectos', investment: '$700M USD', employment: 0 },
-                'Tolima': { viability: 88, reason: 'Ríos con alto desnivel y caudal (Nevados). **Potencial Muy Alto**.', potential: 'Muy alto caudal y pendiente', projects: '7 proyectos', investment: '$900M USD', employment: 0 },
-                'Vichada': { viability: 10, reason: 'Ríos de llanura extensos, pendiente nula. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Cauca': { viability: 92, reason: 'Nacimiento de varios ríos importantes, alto potencial. **Potencial Muy Alto**.', potential: 'Muy alto caudal y pendiente', projects: '5 proyectos', investment: '$600M USD', employment: 0 },
-                'Huila': { viability: 90, reason: 'Río Magdalena y afluentes con buen desnivel. **Potencial Muy Alto**.', potential: 'Alto caudal', projects: '4 proyectos', investment: '$850M USD', employment: 0 },
-                'Guaviare': { viability: 30, reason: 'Ríos de selva, baja pendiente. **Potencial Muy Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Atlántico': { viability: 10, reason: 'Poca pendiente y caudal variable. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cesar': { viability: 45, reason: 'Potencial en ríos de la Sierra Nevada. **Potencial Bajo**.', potential: 'Medio', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Bolívar': { viability: 55, reason: 'Potencial en ríos de la serranía de San Lucas. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$70M USD', employment: 0 },
+                'Norte de Santander': { viability: 70, reason: 'Ríos con buena pendiente en cordillera Oriental. **Potencial Medio-Alto**.', potential: 'Medio-alto', projects: '2 proyectos', investment: '$150M USD', employment: 0 },
+                'Sucre': { viability: 25, reason: 'Poca pendiente y caudal variable. **Potencial Muy Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Córdoba': { viability: 50, reason: 'Potencial en el río Sinú. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$90M USD', employment: 0 },
+                'Santander': { viability: 90, reason: 'Grandes ríos y alta pendiente en la cordillera. **Potencial Muy Alto**.', potential: 'Alto caudal y pendiente', projects: '5 proyectos', investment: '$1.2B USD', employment: 0 },
+                'Arauca': { viability: 30, reason: 'Ríos llaneros con baja pendiente. **Potencial Muy Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Antioquia': { viability: 95, reason: 'Concentración de grandes proyectos (e.g. Hidroituango). **Potencial Máximo**.', potential: 'Muy alto caudal y pendiente', projects: '10 proyectos', investment: '$4B USD', employment: 0 },
+                'Boyacá': { viability: 75, reason: 'Ríos andinos con buena pendiente. **Potencial Alto**.', potential: 'Medio-alto', projects: '3 proyectos', investment: '$350M USD', employment: 0 },
+                'Casanare': { viability: 30, reason: 'Ríos llaneros con baja pendiente. **Potencial Muy Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Chocó': { viability: 60, reason: 'Alto caudal, pero bajo desarrollo por dificultades de acceso. **Potencial Medio**.', potential: 'Alto caudal', projects: '1 proyecto', investment: '$100M USD', employment: 0 },
+                'Caldas': { viability: 85, reason: 'Ríos con alta pendiente en el Eje Cafetero. **Potencial Alto**.', potential: 'Alto', projects: '4 proyectos', investment: '$400M USD', employment: 0 },
+                'Risaralda': { viability: 80, reason: 'Ríos con alta pendiente. **Potencial Alto**.', potential: 'Alto', projects: '3 proyectos', investment: '$300M USD', employment: 0 },
+                'Quindío': { viability: 70, reason: 'Ríos con buena pendiente. **Potencial Medio-Alto**.', potential: 'Medio-alto', projects: '2 proyectos', investment: '$180M USD', employment: 0 },
+                'Cundinamarca': { viability: 65, reason: 'Potencial en ríos de la Sabana y Sumapaz. **Potencial Medio**.', potential: 'Medio', projects: '2 proyectos', investment: '$160M USD', employment: 0 },
+                'Meta': { viability: 55, reason: 'Potencial en el piedemonte de la cordillera. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$110M USD', employment: 0 },
+                'Valle del Cauca': { viability: 88, reason: 'Ríos de la cordillera Occidental con alta pendiente. **Potencial Alto**.', potential: 'Muy alto', projects: '5 proyectos', investment: '$600M USD', employment: 0 },
+                'Tolima': { viability: 85, reason: 'Ríos con alta pendiente de la cordillera Central. **Potencial Alto**.', potential: 'Alto', projects: '4 proyectos', investment: '$450M USD', employment: 0 },
+                'Vichada': { viability: 15, reason: 'Ríos llaneros con baja pendiente. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cauca': { viability: 82, reason: 'Potencial en el Macizo Colombiano. **Potencial Alto**.', potential: 'Alto caudal y pendiente', projects: '4 proyectos', investment: '$500M USD', employment: 0 },
+                'Huila': { viability: 78, reason: 'Potencial en el río Magdalena y sus afluentes. **Potencial Alto**.', potential: 'Alto', projects: '3 proyectos', investment: '$320M USD', employment: 0 },
+                'Guaviare': { viability: 20, reason: 'Ríos remotos, baja pendiente. **Potencial Muy Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Nariño': { viability: 82, reason: 'Potencial en vertiente Pacífico y Macizo Colombiano. **Potencial Alto**.', potential: 'Alto caudal y pendiente', projects: '3 proyectos', investment: '$380M USD', employment: 0 },
                 'Caquetá': { viability: 40, reason: 'Ríos de selva. **Potencial Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Putumayo': { viability: 45, reason: 'Ríos de selva. **Potencial Bajo**.', potential: 'Baja pendiente', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Vaupés': { viability: 15, reason: 'Ríos remotos, baja pendiente. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Guainía': { viability: 10, reason: 'Ríos remotos, pendiente nula. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Amazonas': { viability: 10, reason: 'Río Amazonas y afluentes, pendiente nula. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Guainía': { viability: 15, reason: 'Ríos remotos, baja pendiente. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Amazonas': { viability: 10, reason: 'Ríos de selva, baja pendiente. **Potencial Muy Bajo**.', potential: 'Pendiente nula', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
             },
             biomasa: {
-                'La Guajira': { viability: 40, reason: 'Uso de residuos agrícolas de cultivos de secano. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Magdalena': { viability: 75, reason: 'Alto potencial por industria de palma y banano. **Potencial Alto**.', potential: '20 MWp de residuos de palma/banano', projects: '3 proyectos', investment: '$75M USD', employment: 0 },
-                'Atlántico': { viability: 60, reason: 'Residuos urbanos y agroindustriales. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$40M USD', employment: 0 },
-                'Cesar': { viability: 85, reason: 'Fuerte sector de palma de aceite y ganadería. **Potencial Muy Alto**.', potential: '30 MWp de residuos de palma', projects: '4 proyectos', investment: '$120M USD', employment: 0 },
-                'Bolívar': { viability: 70, reason: 'Residuos de caña y palma. **Potencial Medio-Alto**.', potential: 'Alto', projects: '2 proyectos', investment: '$60M USD', employment: 0 },
-                'Norte de Santander': { viability: 65, reason: 'Residuos de café y agroindustriales. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$30M USD', employment: 0 },
-                'Sucre': { viability: 68, reason: 'Residuos de caña de azúcar y ganadería. **Potencial Medio-Alto**.', potential: 'Medio', projects: '1 proyecto', investment: '$35M USD', employment: 0 },
-                'Córdoba': { viability: 72, reason: 'Gran potencial de residuos de palma, arroz y ganadería. **Potencial Medio-Alto**.', potential: 'Alto', projects: '2 proyectos', investment: '$55M USD', employment: 0 },
-                'Santander': { viability: 70, reason: 'Potencial en café, cacao y palma. **Potencial Medio-Alto**.', potential: 'Medio', projects: '3 proyectos', investment: '$80M USD', employment: 0 },
-                'Arauca': { viability: 55, reason: 'Residuos de arroz y ganadería. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$20M USD', employment: 0 },
-                'Antioquia': { viability: 80, reason: 'Diversidad de residuos agroindustriales (café, plátano, etc.). **Potencial Alto**.', potential: 'Alto', projects: '5 proyectos', investment: '$150M USD', employment: 0 },
-                'Boyacá': { viability: 60, reason: 'Residuos de agricultura andina y ganadería. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$25M USD', employment: 0 },
-                'Casanare': { viability: 65, reason: 'Residuos de palma y arroz. **Potencial Medio-Alto**.', potential: 'Medio', projects: '2 proyectos', investment: '$45M USD', employment: 0 },
-                'Chocó': { viability: 45, reason: 'Residuos forestales y plátano. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Caldas': { viability: 75, reason: 'Fuerte potencial en residuos de café. **Potencial Alto**.', potential: 'Alto', projects: '3 proyectos', investment: '$90M USD', employment: 0 },
-                'Risaralda': { viability: 73, reason: 'Potencial en residuos de café. **Potencial Alto**.', potential: 'Alto', projects: '2 proyectos', investment: '$70M USD', employment: 0 },
-                'Quindío': { viability: 70, reason: 'Potencial en residuos de café. **Potencial Medio-Alto**.', potential: 'Medio-Alto', projects: '1 proyecto', investment: '$40M USD', employment: 0 },
-                'Cundinamarca': { viability: 68, reason: 'Residuos urbanos y agrícolas. **Potencial Medio-Alto**.', potential: 'Medio', projects: '4 proyectos', investment: '$100M USD', employment: 0 },
-                'Meta': { viability: 82, reason: 'Líder en residuos de palma de aceite y agroindustria. **Potencial Alto**.', potential: 'Muy alto', projects: '4 proyectos', investment: '$110M USD', employment: 0 },
-                'Valle del Cauca': { viability: 95, reason: 'Concentración de industria azucarera (bagazo). **Potencial Muy Alto**.', potential: 'Gran potencial en bagazo de caña', projects: '10 proyectos', investment: '$300M USD', employment: 0 },
-                'Tolima': { viability: 78, reason: 'Residuos de arroz y café. **Potencial Alto**.', potential: 'Alto', projects: '3 proyectos', investment: '$95M USD', employment: 0 },
-                'Vichada': { viability: 30, reason: 'Baja densidad de biomasa. **Potencial Muy Bajo**.', potential: 'Muy bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Cauca': { viability: 70, reason: 'Potencial en residuos de caña y café. **Potencial Medio-Alto**.', potential: 'Medio-Alto', projects: '2 proyectos', investment: '$60M USD', employment: 0 },
+                'La Guajira': { viability: 35, reason: 'Potencial limitado. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Magdalena': { viability: 50, reason: 'Residuos agrícolas (palma). **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$20M USD', employment: 0 },
+                'Atlántico': { viability: 45, reason: 'Potencial moderado de residuos urbanos. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cesar': { viability: 55, reason: 'Residuos de palma y ganadería. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$25M USD', employment: 0 },
+                'Bolívar': { viability: 60, reason: 'Potencial en residuos agrícolas y forestales. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$30M USD', employment: 0 },
+                'Norte de Santander': { viability: 65, reason: 'Potencial en residuos de café y caña. **Potencial Medio**.', potential: 'Medio', projects: '2 proyectos', investment: '$50M USD', employment: 0 },
+                'Sucre': { viability: 40, reason: 'Residuos agrícolas. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Córdoba': { viability: 55, reason: 'Residuos de ganadería y arroz. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$25M USD', employment: 0 },
+                'Santander': { viability: 70, reason: 'Potencial en residuos de palma y café. **Potencial Medio-Alto**.', potential: 'Medio-alto', projects: '3 proyectos', investment: '$80M USD', employment: 0 },
+                'Arauca': { viability: 45, reason: 'Residuos de palma. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Antioquia': { viability: 80, reason: 'Residuos de café, caña y residuos sólidos urbanos (RSU). **Potencial Alto**.', potential: 'Alto', projects: '5 proyectos', investment: '$200M USD', employment: 0 },
+                'Boyacá': { viability: 50, reason: 'Residuos agrícolas y forestales. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$20M USD', employment: 0 },
+                'Casanare': { viability: 60, reason: 'Residuos de palma y arroz. **Potencial Medio**.', potential: 'Medio', projects: '2 proyectos', investment: '$40M USD', employment: 0 },
+                'Chocó': { viability: 30, reason: 'Baja infraestructura de gestión de residuos. **Potencial Muy Bajo**.', potential: 'Muy bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Caldas': { viability: 70, reason: 'Potencial en residuos de café. **Potencial Medio-Alto**.', potential: 'Medio-Alto', projects: '2 proyectos', investment: '$60M USD', employment: 0 },
+                'Risaralda': { viability: 65, reason: 'Residuos de café. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$40M USD', employment: 0 },
+                'Quindío': { viability: 68, reason: 'Residuos de café. **Potencial Medio-Alto**.', potential: 'Medio-Alto', projects: '1 proyecto', investment: '$45M USD', employment: 0 },
+                'Cundinamarca': { viability: 85, reason: 'Alto potencial en RSU y residuos agrícolas. **Potencial Alto**.', potential: 'Alto', projects: '4 proyectos', investment: '$150M USD', employment: 0 },
+                'Meta': { viability: 65, reason: 'Residuos de palma y arroz. **Potencial Medio**.', potential: 'Medio', projects: '2 proyectos', investment: '$50M USD', employment: 0 },
+                'Valle del Cauca': { viability: 95, reason: 'Potencial Máximo en residuos de caña de azúcar (bagazo). **Potencial Máximo**.', potential: 'Muy alto', projects: '8 proyectos', investment: '$300M USD', employment: 0 },
+                'Tolima': { viability: 70, reason: 'Residuos de arroz y café. **Potencial Medio-Alto**.', potential: 'Medio-Alto', projects: '2 proyectos', investment: '$60M USD', employment: 0 },
+                'Vichada': { viability: 20, reason: 'Remoto y baja densidad de actividad económica. **Potencial Muy Bajo**.', potential: 'Muy bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cauca': { viability: 60, reason: 'Residuos de caña panelera y café. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$35M USD', employment: 0 },
                 'Huila': { viability: 75, reason: 'Potencial en residuos de café. **Potencial Alto**.', potential: 'Alto', projects: '2 proyectos', investment: '$70M USD', employment: 0 },
                 'Guaviare': { viability: 25, reason: 'Selva y baja densidad de actividad económica. **Potencial Muy Bajo**.', potential: 'Muy bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Nariño': { viability: 60, reason: 'Residuos de caña panelera y café. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto', investment: '$30M USD', employment: 0 },
@@ -818,11 +838,11 @@
             },
             geotermica: {
                 'La Guajira': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Magdalena': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Magdalena': { viability: 10, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Atlántico': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Cesar': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Bolívar': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Norte de Santander': { viability: 30, reason: 'Potencial exploratorio asociado a fallas. **Potencial Muy Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Cesar': { viability: 10, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Bolívar': { viability: 15, reason: 'Puntos de interés termal de baja entalpía. **Potencial Muy Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Norte de Santander': { viability: 40, reason: 'Zonas termales, potencial de baja entalpía. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Sucre': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Córdoba': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Santander': { viability: 50, reason: 'Puntos de interés termal para baja entalpía. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto de estudio', investment: '$10M USD', employment: 0 },
@@ -832,12 +852,12 @@
                 'Casanare': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Chocó': { viability: 15, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Caldas': { viability: 95, reason: 'Concentración de actividad volcánica (eje cafetero). **Potencial Muy Alto**.', potential: 'Alto potencial de alta entalpía', projects: '3 proyectos de exploración', investment: '$50M USD', employment: 0 },
-                'Risaralda': { viability: 90, reason: 'Concentración de actividad volcánica. **Potencial Muy Alto**.', potential: 'Alto potencial de alta entalpía', projects: '2 proyectos de exploración', investment: '$40M USD', employment: 0 },
-                'Quindío': { viability: 85, reason: 'Cercanía a la actividad volcánica. **Potencial Alto**.', potential: 'Medio-alto potencial', projects: '1 proyecto de exploración', investment: '$20M USD', employment: 0 },
-                'Cundinamarca': { viability: 20, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Risaralda': { viability: 90, reason: 'Concentración de actividad volcánica. **Potencial Muy Alto**.', potential: 'Alto potencial de alta entalpía', projects: '2 proyectos de exploración', investment: '$45M USD', employment: 0 },
+                'Quindío': { viability: 85, reason: 'Actividad volcánica en el Macizo Colombiano. **Potencial Alto**.', potential: 'Medio-alto', projects: '1 proyecto de exploración', investment: '$30M USD', employment: 0 },
+                'Cundinamarca': { viability: 45, reason: 'Potencial de baja entalpía en zonas termales. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Meta': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Valle del Cauca': { viability: 70, reason: 'Potencial asociado a la Cordillera Occidental. **Potencial Medio-Alto**.', potential: 'Medio', projects: '1 proyecto de estudio', investment: '$15M USD', employment: 0 },
-                'Tolima': { viability: 88, reason: 'Actividad volcánica (Nevado del Tolima). **Potencial Muy Alto**.', potential: 'Alto potencial de alta entalpía', projects: '2 proyectos de exploración', investment: '$45M USD', employment: 0 },
+                'Valle del Cauca': { viability: 60, reason: 'Cercanía a la zona volcánica del Eje Cafetero. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto de estudio', investment: '$20M USD', employment: 0 },
+                'Tolima': { viability: 90, reason: 'Volcán Nevado del Tolima. **Potencial Muy Alto**.', potential: 'Muy alto potencial', projects: '2 proyectos de exploración', investment: '$55M USD', employment: 0 },
                 'Vichada': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Cauca': { viability: 80, reason: 'Actividad volcánica en el Macizo Colombiano. **Potencial Alto**.', potential: 'Alto potencial', projects: '2 proyectos de exploración', investment: '$35M USD', employment: 0 },
                 'Huila': { viability: 75, reason: 'Cercanía a volcanes del sur. **Potencial Alto**.', potential: 'Medio-alto', projects: '1 proyecto de exploración', investment: '$25M USD', employment: 0 },
@@ -850,11 +870,11 @@
                 'Amazonas': { viability: 5, reason: 'Baja actividad geotérmica. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
             },
             mareomotriz: {
-                'La Guajira': { viability: 50, reason: 'Potencial de olas y corrientes en zonas específicas. **Potencial Medio**.', potential: 'Moderado de corrientes', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Magdalena': { viability: 40, reason: 'Potencial bajo de corrientes costeras. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Atlántico': { viability: 45, reason: 'Potencial de olas y corrientes. **Potencial Bajo**.', potential: 'Bajo a moderado', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'La Guajira': { viability: 55, reason: 'Potencial moderado de olas y corrientes. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto de estudio', investment: '$5M USD', employment: 0 },
+                'Magdalena': { viability: 45, reason: 'Potencial bajo en el mar Caribe. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Atlántico': { viability: 48, reason: 'Potencial bajo en el mar Caribe. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Cesar': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Bolívar': { viability: 35, reason: 'Potencial bajo de corrientes. **Potencial Muy Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
+                'Bolívar': { viability: 50, reason: 'Potencial moderado en la costa. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto de estudio', investment: '$4M USD', employment: 0 },
                 'Norte de Santander': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Sucre': { viability: 40, reason: 'Potencial en el Golfo de Morrosquillo. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Córdoba': { viability: 42, reason: 'Potencial en el Golfo de Morrosquillo. **Potencial Bajo**.', potential: 'Bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
@@ -863,13 +883,13 @@
                 'Antioquia': { viability: 20, reason: 'Potencial bajo en la costa de Urabá. **Potencial Muy Bajo**.', potential: 'Muy bajo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Boyacá': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Casanare': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Chocó': { viability: 65, reason: 'Potencial de olas y corrientes en el Pacífico. **Potencial Medio-Alto**.', potential: 'Medio-alto de olas/corrientes', projects: '1 proyecto de estudio', investment: '$5M USD', employment: 0 },
+                'Chocó': { viability: 65, reason: 'Potencial de olas y corrientes en el Pacífico. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto de estudio', investment: '$7M USD', employment: 0 },
                 'Caldas': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Risaralda': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Quindío': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Cundinamarca': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Meta': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
-                'Valle del Cauca': { viability: 70, reason: 'Potencial alto en la costa Pacífica (Bahía de Buenaventura). **Potencial Medio-Alto**.', potential: 'Alto de olas/corrientes', projects: '1 proyecto de estudio', investment: '$10M USD', employment: 0 },
+                'Valle del Cauca': { viability: 60, reason: 'Potencial de olas en el Pacífico. **Potencial Medio**.', potential: 'Medio', projects: '1 proyecto de estudio', investment: '$6M USD', employment: 0 },
                 'Tolima': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Vichada': { viability: 5, reason: 'Interior sin costa. **Potencial Muy Bajo**.', potential: 'Nulo', projects: '0 proyectos', investment: '$0 USD', employment: 0 },
                 'Cauca': { viability: 68, reason: 'Potencial de olas en el Pacífico. **Potencial Medio-Alto**.', potential: 'Medio-alto', projects: '1 proyecto de estudio', investment: '$8M USD', employment: 0 },
@@ -884,16 +904,15 @@
             },
         };
 
-        let currentEnergy = 'solar';
-        let currentSelectedDepartment = null;
-        let currentSelectedElement = null;
+        // --- FUNCIONES Y LÓGICA DE VISUALIZACIÓN ---
 
-        // --- FUNCIONES DE LÓGICA DEL DASHBOARD ---
+        let currentEnergy = 'solar'; // Energía por defecto
+        let currentSelectedDepartment = null;
 
         /**
-         * Asigna una clase CSS basada en la puntuación de viabilidad (0-100).
-         * @param {number} score Puntuación de viabilidad.
-         * @returns {string} Clase CSS correspondiente.
+         * Asigna la clase CSS de viabilidad en español.
+         * @param {number} score Puntuación de viabilidad (0-100).
+         * @returns {string} Clase CSS.
          */
         function getViabilityClass(score) {
             if (score >= 90) return 'viability-muy-alta';
@@ -904,9 +923,9 @@
         }
 
         /**
-         * Traduce la puntuación de viabilidad a un texto legible.
-         * @param {number} score Puntuación de viabilidad.
-         * @returns {string} Nivel de viabilidad en español.
+         * Devuelve el texto de viabilidad en español.
+         * @param {number} score Puntuación de viabilidad (0-100).
+         * @returns {string} Texto de viabilidad.
          */
         function getViabilityText(score) {
             if (score >= 90) return 'Muy Alta';
@@ -952,50 +971,48 @@
                     path.style.fill = '#475569'; // slate-600
                 }
             });
-            
+
             // 3. Re-seleccionar el departamento si había uno seleccionado, para actualizar el panel
             if (currentSelectedDepartment) {
                 const deptElement = document.querySelector(`.department[data-dept="${currentSelectedDepartment}"]`);
                 if (deptElement) {
-                     // Llama de nuevo para actualizar el panel con la nueva data de energía
+                    // Llama de nuevo para actualizar el panel con la nueva data de energía
                     showDepartmentDetails(currentSelectedDepartment, deptElement);
                 }
             } else {
                 // Limpiar el panel si se cambia de energía y no hay departamento seleccionado
                 document.getElementById('panel-content').innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">ℹ️</div>
-                        <p>Selecciona un departamento en el mapa para ver información detallada sobre su viabilidad energética</p>
-                    </div>
-                `;
+                 <div class="empty-state">
+                     <div class="empty-icon">ℹ️</div>
+                     <p>Selecciona un departamento en el mapa para ver información detallada sobre su viabilidad energética</p>
+                 </div>
+                 `;
             }
         }
 
         /**
          * Muestra la información detallada del departamento seleccionado en el panel.
          * @param {string} departmentName Nombre del departamento.
-         * @param {HTMLElement} element El elemento SVG del departamento.
+         * @param {HTMLElement} departmentElement Elemento SVG (path) del departamento.
          */
-        function showDepartmentDetails(departmentName, element) {
-            const data = energyData[currentEnergy] ? energyData[currentEnergy][departmentName] : null;
-
-            // Limpiar selección previa
-            if (currentSelectedElement) {
-                currentSelectedElement.classList.remove('selected-department');
+        function showDepartmentDetails(departmentName, departmentElement) {
+            // 1. Desmarcar departamento anterior
+            if (currentSelectedDepartment) {
+                document.querySelector(`.department[data-dept="${currentSelectedDepartment}"]`).classList.remove('selected-department');
             }
-
-            // Marcar nueva selección
-            element.classList.add('selected-department');
-            currentSelectedElement = element;
+            
+            // 2. Marcar nuevo departamento
+            departmentElement.classList.add('selected-department');
             currentSelectedDepartment = departmentName;
 
+            const data = energyData[currentEnergy][departmentName];
             const panelContent = document.getElementById('panel-content');
 
             if (!data) {
                 panelContent.innerHTML = `
                     <div class="empty-state">
-                        <div class="empty-icon">❌</div>
-                        <p>No hay datos de viabilidad de **${currentEnergy.toUpperCase()}** disponibles para **${departmentName}**.</p>
+                        <div class="empty-icon">⚠️</div>
+                        <p>Datos no disponibles para <strong>${departmentName}</strong> en <strong>${currentEnergy}</strong>.</p>
                     </div>
                 `;
                 return;
@@ -1003,13 +1020,14 @@
 
             const viabilityText = getViabilityText(data.viability);
             const viabilityClass = getViabilityClass(data.viability);
+            // Esto es un truco para obtener el color dinámico de la clase CSS
             const progressColor = getComputedStyle(document.querySelector(`.${viabilityClass}`)).fill;
-
+            
             panelContent.innerHTML = `
                 <div class="department-info">
                     <h3>${departmentName}</h3>
                     <div class="energy-type">${currentEnergy.toUpperCase().replace('EÓLICA', 'EÓLICA').replace('HIDRAULICA', 'HIDRÁULICA').replace('GEOTERMICA', 'GEOTÉRMICA').replace('MAREOMOTRIZ', 'MAREOMOTRIZ')}</div>
-
+                    
                     <div class="viability-section">
                         <div class="viability-header">
                             <div class="viability-label">Puntuación de Viabilidad (0-100)</div>
@@ -1052,83 +1070,17 @@
          * Inicializa el dashboard al cargar la página.
          */
         function initDashboard() {
-            // Cargar la visualización por defecto (Solar)
-            updateMapVisualization('solar');
+            // Cargar la visualización por defecto (solar)
+            updateMapVisualization(currentEnergy);
 
-            // Actualizar las etiquetas de los departamentos para que se vean bien en el color de fondo (si el fill es muy oscuro)
-            const map = document.getElementById('colombia-map');
-            const labels = map.querySelectorAll('.department-label');
-            labels.forEach(label => {
-                label.setAttribute('fill', '#0f172a'); // Fondo oscuro para letras claras
-            });
+            // Inicializar el chatbot (Landbot)
+            initLandbot();
         }
 
-        // --- FUNCIONES DEL CHATBOT ---
 
-        function toggleChatbot() {
-            document.getElementById('chatbot').classList.toggle('open');
-        }
-
-        function addMessage(text, sender) {
-            const messages = document.getElementById('messages');
-            const newMessage = document.createElement('div');
-            newMessage.classList.add('message', sender);
-            newMessage.innerHTML = text; // Usar innerHTML para respetar markdown básico
-            messages.appendChild(newMessage);
-            messages.scrollTop = messages.scrollHeight; // Auto-scroll
-        }
-
-        function askQuestion(question) {
-            addMessage(question, 'user');
-            processQuery(question);
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const text = input.value.trim();
-            if (text === '') return;
-
-            addMessage(text, 'user');
-            processQuery(text);
-            input.value = '';
-        }
-
-        function processQuery(query) {
-            const lower = query.toLowerCase();
-            let response = '';
-
-            // Lógica simple para respuestas predefinidas
-            if (lower.includes('financiamiento') || lower.includes('crédito') || lower.includes('fnd')) {
-                response = 'El financiamiento en Colombia incluye líneas de crédito verde del **FINDETER** y **Bancóldex**, así como exenciones tributarias (IVA, arancel, renta) a través de la **Ley 1715 de 2014** y sus decretos reglamentarios. El **Fondo de Energías No Convencionales y Gestión Eficiente de la Energía (FENOGE)** también ofrece co-financiamiento para proyectos piloto.';
-            } else if (lower.includes('implementación') || lower.includes('pasos') || lower.includes('requisitos')) {
-                response = 'Los pasos típicos son: 1. **Estudios de recurso** (Viabilidad), 2. **Pre-factibilidad y Factibilidad** (Diseño e Ingeniería), 3. **Obtención de Licencias** (Ambiental y de Construcción), 4. **Registro UPME** (Si aplica a gran escala), 5. **Financiamiento**, 6. **Construcción** y 7. **Puesta en Operación**.';
-            } else if (lower.includes('la guajira') || lower.includes('guajira')) {
-                response = '**La Guajira** es el departamento con mayor potencial de Colombia para **Energía Eólica** (vientos de clase 7) y **Energía Solar** (radiación de planta superior (40-50%). Colombia tiene potencial de 50+ GW eólicos, principalmente en la costa Caribe y zonas montañosas.';
-            } else if (lower.includes('empleo') || lower.includes('trabajo')) {
-                const depts = ['La Guajira', 'Magdalena', 'Atlántico', 'Cesar'];
-                const totalJobs = depts.reduce((sum, dept) => {
-                    return sum + energyData.solar[dept].employment + 
-                           energyData.eolica[dept].employment + 
-                           energyData.hidraulica[dept].employment + 
-                           energyData.biomasa[dept].employment;
-                }, 0);
-                response = `Las energías renovables han generado ${totalJobs.toLocaleString()} empleos directos en la región Caribe (2019-2024). La Guajira lidera con proyectos eólicos, seguida por Cesar en biomasa. Cada MW instalado genera aproximadamente 5-7 empleos directos durante construcción y 0.2-0.5 empleos permanentes en operación.`;
-            } else {
-                response = 'Puedo ayudarte con información sobre: financiamiento disponible, pasos de implementación, viabilidad por departamento, tipos de energía renovable, impacto económico y empleo. ¿Sobre qué tema específico te gustaría saber más?';
-            }
-
-            addMessage(response, 'bot');
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
-
-        // ==============================================
-        // 3. CÓDIGO DE INTEGRACIÓN DE LANDBOT (NUEVO)
-        // ==============================================
+        // --- LÓGICA DE CHATBOT (SIMULADA) ---
+        // El código original del chatbot ha sido omitido o movido para usar Landbot,
+        // pero se mantiene la función de inicialización de Landbot:
 
         window.addEventListener('mouseover', initLandbot, { once: true });
         window.addEventListener('touchstart', initLandbot, { once: true });
@@ -1149,12 +1101,7 @@
           }
         }
 
-        // Se eliminaron todas las funciones del chatbot anterior (toggleChatbot, addMessage, etc.)
     </script>
 
- 
-
-
-    </script>
 </body>
 </html>
